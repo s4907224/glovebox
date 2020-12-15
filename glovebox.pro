@@ -7,10 +7,14 @@ CONFIG += sdk_no_version_check
 
 SOURCES += \
         src/*.cpp\
-        src/handlers/*.cpp
+        src/core/*.cpp\
+        src/handlers/*.cpp\
+        src/helpers/*.cpp
 
 HEADERS += \
         include/*.h\
-        include/handlers/*.h
+        include/core/*.h\
+        include/handlers/*.h\
+        include/helpers/*.h
 
 INCLUDEPATH += include

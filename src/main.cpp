@@ -1,10 +1,10 @@
 #include <iostream>
 
-#include "handlers/sdl_gbox.h"
+#include "core/core.h"
 
 int main()
 {
     std::cout<<"Main\n";
-    gbox::SDL_gbox sdl_handler;
+    gbox::Core core;
     return EXIT_SUCCESS;
 }

@@ -3,9 +3,11 @@
 
 #include <iostream>
 
+#include "handlers/generic_handler.h"
+
 namespace gbox
 {
-  class SDL_gbox
+  class SDL_gbox : public Generic_handler
   {
     public:
       // dtor
