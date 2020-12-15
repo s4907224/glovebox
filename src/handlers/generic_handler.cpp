@@ -1,42 +1,42 @@
 #include "handlers/generic_handler.h"
 
-int gbox::Generic_handler::m_instance_counter = 0;
+int gbox::GenericHandler::m_instance_counter = 0;
 
-gbox::Generic_handler::Generic_handler()
+gbox::GenericHandler::GenericHandler()
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Ctor called for Generic_handler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Ctor called for GenericHandler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
 }
 
-gbox::Generic_handler::~Generic_handler()
+gbox::GenericHandler::~GenericHandler()
 {
-  std::cout<<"Dtor called for Generic_handler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Dtor called for GenericHandler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
 }
 
-gbox::Generic_handler::Generic_handler(const Generic_handler& _generic_handler_other)
+gbox::GenericHandler::GenericHandler(const GenericHandler& _GenericHandler_other)
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Copy ctor called for Generic_handler with ID "<<m_ID<<" and Generic_handler with ID "<<_generic_handler_other.m_ID<<'\n';
+  std::cout<<"Copy ctor called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<'\n';
 }
 
-gbox::Generic_handler& gbox::Generic_handler::operator=(const Generic_handler& _generic_handler_other)
+gbox::GenericHandler& gbox::GenericHandler::operator=(const GenericHandler& _GenericHandler_other)
 {
-  m_ID = _generic_handler_other.m_ID;
-  std::cout<<"Copy assignment called for Generic_handler with ID "<<m_ID<<" and Generic_handler with ID "<<_generic_handler_other.m_ID<<'\n';
+  m_ID = _GenericHandler_other.m_ID;
+  std::cout<<"Copy assignment called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<'\n';
   return *this;
 }
 
-gbox::Generic_handler::Generic_handler(Generic_handler&& _generic_handler_other)
+gbox::GenericHandler::GenericHandler(GenericHandler&& _GenericHandler_other)
 {
-  m_ID = _generic_handler_other.m_ID;
-  std::cout<<"Move ctor called for Generic_handler with ID "<<m_ID<<" and Generic_handler with ID "<<_generic_handler_other.m_ID<<'\n';
-  _generic_handler_other.m_ID = -1;
+  m_ID = _GenericHandler_other.m_ID;
+  std::cout<<"Move ctor called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<'\n';
+  _GenericHandler_other.m_ID = -1;
 }
 
-gbox::Generic_handler& gbox::Generic_handler::operator=(Generic_handler&& _generic_handler_other)
+gbox::GenericHandler& gbox::GenericHandler::operator=(GenericHandler&& _GenericHandler_other)
 {
-  m_ID = _generic_handler_other.m_ID;
-  std::cout<<"Move assignment called for Generic_handler with ID "<<m_ID<<" and Generic_handler with ID "<<_generic_handler_other.m_ID<<'\n';
-  _generic_handler_other.m_ID = -1;
+  m_ID = _GenericHandler_other.m_ID;
+  std::cout<<"Move assignment called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<'\n';
+  _GenericHandler_other.m_ID = -1;
   return *this;
 }

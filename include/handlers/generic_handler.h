@@ -1,32 +1,32 @@
-#ifndef GBOX_GENERIC_HANDLER_H
-#define GBOX_GENERIC_HANDLER_H
+#ifndef GBOX_GenericHandler_H
+#define GBOX_GenericHandler_H
 
 #include <iostream>
 
 namespace gbox
 {
-  class Generic_handler
+  class GenericHandler
   {
     public:
       // dtor
-      ~Generic_handler();
+      ~GenericHandler();
       // ctor
-      Generic_handler();
+      GenericHandler();
       // copy ctor
-      Generic_handler(const Generic_handler& _generic_handler_other);
+      GenericHandler(const GenericHandler& _GenericHandler_other);
       // copy assignment operator
-      Generic_handler& operator=(const Generic_handler& _generic_handler_other);
+      GenericHandler& operator=(const GenericHandler& _GenericHandler_other);
       // move ctor
-      Generic_handler(Generic_handler&& _generic_handler_other);
+      GenericHandler(GenericHandler&& _GenericHandler_other);
       // move assignment operator
-      Generic_handler& operator=(Generic_handler&& _generic_handler_other);
+      GenericHandler& operator=(GenericHandler&& _GenericHandler_other);
       // property for ID
       const int& ID() {return m_ID;}
 
     private:
       static int m_instance_counter;
       int m_ID;
-  };// class Generic_handler
+  };// class GenericHandler
 }// namespace gbox
 
-#endif // GBOXGENERIC_HANDLERH
+#endif // GBOXGenericHandlerH

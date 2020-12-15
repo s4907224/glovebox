@@ -1,42 +1,42 @@
 #include "helpers/gl_helper.h"
 
-int gbox::Gl_helper::m_instance_counter = 0;
+int gbox::GLHelper::m_instance_counter = 0;
 
-gbox::Gl_helper::Gl_helper()
+gbox::GLHelper::GLHelper()
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Ctor called for Gl_helper with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Ctor called for GLHelper with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
 }
 
-gbox::Gl_helper::~Gl_helper()
+gbox::GLHelper::~GLHelper()
 {
-  std::cout<<"Dtor called for Gl_helper with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Dtor called for GLHelper with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
 }
 
-gbox::Gl_helper::Gl_helper(const Gl_helper& _gl_helper_other)
+gbox::GLHelper::GLHelper(const GLHelper& _GLHelper_other)
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Copy ctor called for Gl_helper with ID "<<m_ID<<" and Gl_helper with ID "<<_gl_helper_other.m_ID<<'\n';
+  std::cout<<"Copy ctor called for GLHelper with ID "<<m_ID<<" and GLHelper with ID "<<_GLHelper_other.m_ID<<'\n';
 }
 
-gbox::Gl_helper& gbox::Gl_helper::operator=(const Gl_helper& _gl_helper_other)
+gbox::GLHelper& gbox::GLHelper::operator=(const GLHelper& _GLHelper_other)
 {
-  m_ID = _gl_helper_other.m_ID;
-  std::cout<<"Copy assignment called for Gl_helper with ID "<<m_ID<<" and Gl_helper with ID "<<_gl_helper_other.m_ID<<'\n';
+  m_ID = _GLHelper_other.m_ID;
+  std::cout<<"Copy assignment called for GLHelper with ID "<<m_ID<<" and GLHelper with ID "<<_GLHelper_other.m_ID<<'\n';
   return *this;
 }
 
-gbox::Gl_helper::Gl_helper(Gl_helper&& _gl_helper_other)
+gbox::GLHelper::GLHelper(GLHelper&& _GLHelper_other)
 {
-  m_ID = _gl_helper_other.m_ID;
-  std::cout<<"Move ctor called for Gl_helper with ID "<<m_ID<<" and Gl_helper with ID "<<_gl_helper_other.m_ID<<'\n';
-  _gl_helper_other.m_ID = -1;
+  m_ID = _GLHelper_other.m_ID;
+  std::cout<<"Move ctor called for GLHelper with ID "<<m_ID<<" and GLHelper with ID "<<_GLHelper_other.m_ID<<'\n';
+  _GLHelper_other.m_ID = -1;
 }
 
-gbox::Gl_helper& gbox::Gl_helper::operator=(Gl_helper&& _gl_helper_other)
+gbox::GLHelper& gbox::GLHelper::operator=(GLHelper&& _GLHelper_other)
 {
-  m_ID = _gl_helper_other.m_ID;
-  std::cout<<"Move assignment called for Gl_helper with ID "<<m_ID<<" and Gl_helper with ID "<<_gl_helper_other.m_ID<<'\n';
-  _gl_helper_other.m_ID = -1;
+  m_ID = _GLHelper_other.m_ID;
+  std::cout<<"Move assignment called for GLHelper with ID "<<m_ID<<" and GLHelper with ID "<<_GLHelper_other.m_ID<<'\n';
+  _GLHelper_other.m_ID = -1;
   return *this;
 }

@@ -1,32 +1,32 @@
-#ifndef GBOX_GL_HELPER_H
-#define GBOX_GL_HELPER_H
+#ifndef GBOX_GLHelper_H
+#define GBOX_GLHelper_H
 
 #include <iostream>
 
 namespace gbox
 {
-  class Gl_helper
+  class GLHelper
   {
     public:
       // dtor
-      ~Gl_helper();
+      ~GLHelper();
       // ctor
-      Gl_helper();
+      GLHelper();
       // copy ctor
-      Gl_helper(const Gl_helper& _gl_helper_other);
+      GLHelper(const GLHelper& _GLHelper_other);
       // copy assignment operator
-      Gl_helper& operator=(const Gl_helper& _gl_helper_other);
+      GLHelper& operator=(const GLHelper& _GLHelper_other);
       // move ctor
-      Gl_helper(Gl_helper&& _gl_helper_other);
+      GLHelper(GLHelper&& _GLHelper_other);
       // move assignment operator
-      Gl_helper& operator=(Gl_helper&& _gl_helper_other);
+      GLHelper& operator=(GLHelper&& _GLHelper_other);
       // property for ID
       const int& ID() {return m_ID;}
 
     private:
       static int m_instance_counter;
       int m_ID;
-  };// class Gl_helper
+  };// class GLHelper
 }// namespace gbox
 
-#endif // GBOXGL_HELPERH
+#endif // GBOXGLHelperH

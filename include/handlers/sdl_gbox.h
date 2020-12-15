@@ -1,5 +1,5 @@
-#ifndef GBOX_SDL_gbox_H
-#define GBOX_SDL_gbox_H
+#ifndef GBOX_SDLgbox_H
+#define GBOX_SDLgbox_H
 
 #include <iostream>
 
@@ -7,28 +7,28 @@
 
 namespace gbox
 {
-  class SDL_gbox : public Generic_handler
+  class SDLgbox : public GenericHandler
   {
     public:
       // dtor
-      ~SDL_gbox();
+      ~SDLgbox();
       // ctor
-      SDL_gbox();
+      SDLgbox();
       // copy ctor
-      SDL_gbox(const SDL_gbox& _SDL_gbox_other);
+      SDLgbox(const SDLgbox& _SDLgbox_other);
       // copy assignment operator
-      SDL_gbox& operator=(const SDL_gbox& _SDL_gbox_other);
+      SDLgbox& operator=(const SDLgbox& _SDLgbox_other);
       // move ctor
-      SDL_gbox(SDL_gbox&& _SDL_gbox_other);
+      SDLgbox(SDLgbox&& _SDLgbox_other);
       // move assignment operator
-      SDL_gbox& operator=(SDL_gbox&& _SDL_gbox_other);
+      SDLgbox& operator=(SDLgbox&& _SDLgbox_other);
       // property for ID
       const int& ID() {return m_ID;}
 
     private:
       static int m_instance_counter;
       int m_ID;
-  };// class SDL_gbox
+  };// class SDLgbox
 }// namespace gbox
 
-#endif // GBOXSDL_gboxH
+#endif // GBOXSDLgboxH
