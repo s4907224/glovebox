@@ -1,9 +1,10 @@
 #include <iostream>
 
-using namespace std;
+#include "handlers/sdl_gbox.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
-    return 0;
+    std::cout<<"Main\n";
+    gbox::SDL_gbox sdl_handler;
+    return EXIT_SUCCESS;
 }

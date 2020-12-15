@@ -6,4 +6,11 @@ CONFIG -= qt
 CONFIG += sdk_no_version_check
 
 SOURCES += \
-        src/main.cpp
+        src/*.cpp\
+        src/handlers/*.cpp
+
+HEADERS += \
+        include/*.h\
+        include/handlers/*.h
+
+INCLUDEPATH += include
