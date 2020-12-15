@@ -1,0 +1,12 @@
+
+*.o
+
+src/.DS_Store
+
+Makefile
+
+glovebox
+
+*.stash
+
+.DS_Store
