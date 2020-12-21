@@ -2,7 +2,7 @@
 
 int gbox::GenericHandler::m_instance_counter = 0;
 
-gbox::GenericHandler::GenericHandler()
+gbox::GenericHandler::GenericHandler() : m_quit(false)
 {
   m_ID = m_instance_counter++;
   std::cout<<"Ctor called for GenericHandler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
@@ -39,4 +39,9 @@ gbox::GenericHandler& gbox::GenericHandler::operator=(GenericHandler&& _GenericH
   std::cout<<"Move assignment called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<'\n';
   _GenericHandler_other.m_ID = -1;
   return *this;
+}
+
+bool gbox::GenericHandler::quit_requested() const
+{
+  return m_quit;
 }

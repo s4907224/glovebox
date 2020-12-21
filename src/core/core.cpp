@@ -53,5 +53,18 @@ gbox::Core& gbox::Core::operator=(Core&& _core_other)
 
 void gbox::Core::register_SDL_handler()
 {
-  m_handler = std::make_shared<gbox::SDLgbox>();
+  m_handler = std::make_shared<gbox::SDLHandler>();
+}
+
+void gbox::Core::update()
+{
+  m_handler->draw();
+}
+
+void gbox::Core::start_main_loop()
+{
+  while (!m_handler->quit_requested())
+  {
+    update();
+  }
 }

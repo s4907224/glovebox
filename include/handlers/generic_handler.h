@@ -23,9 +23,17 @@ namespace gbox
       // property for ID
       const int& ID() {return m_ID;}
 
-    private:
+      virtual void draw() {};
+
+      bool quit_requested() const;
+
+    protected:
       static int m_instance_counter;
       int m_ID;
+
+      virtual bool init_window() {return false;};
+
+      bool m_quit;
   };// class GenericHandler
 }// namespace gbox
 
