@@ -10,3 +10,5 @@ glovebox
 *.stash
 
 .DS_Store
+
+.vscode/*
