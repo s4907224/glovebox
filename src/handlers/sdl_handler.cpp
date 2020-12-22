@@ -1,44 +1,45 @@
 #include "handlers/sdl_handler.h"
+#include "helpers/sdl_utils.h"
 
 int gbox::SDLHandler::m_instance_counter = 0;
 
 gbox::SDLHandler::SDLHandler()
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Ctor called for SDLHandler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Ctor called for SDLHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   init_window();
 }
 
 gbox::SDLHandler::~SDLHandler()
 {
-  std::cout<<"Dtor called for SDLHandler with ID "<<m_ID<<" @"<<std::hex<<this<<'\n';
+  std::cout<<"Dtor called for SDLHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   delete m_window;
 }
 
 gbox::SDLHandler::SDLHandler(const SDLHandler& _SDLgbox_other)
 {
   m_ID = m_instance_counter++;
-  std::cout<<"Copy ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<'\n';
+  std::cout<<"Copy ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
 }
 
 gbox::SDLHandler& gbox::SDLHandler::operator=(const SDLHandler& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
-  std::cout<<"Copy assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<'\n';
+  std::cout<<"Copy assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
   return *this;
 }
 
 gbox::SDLHandler::SDLHandler(SDLHandler&& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
-  std::cout<<"Move ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<'\n';
+  std::cout<<"Move ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
   _SDLgbox_other.m_ID = -1;
 }
 
 gbox::SDLHandler& gbox::SDLHandler::operator=(SDLHandler&& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
-  std::cout<<"Move assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<'\n';
+  std::cout<<"Move assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
   _SDLgbox_other.m_ID = -1;
   return *this;
 }
@@ -96,8 +97,9 @@ bool gbox::SDLHandler::init_window()
   SDL_GL_SetSwapInterval(1);
 }
 
-void gbox::SDLHandler::draw()
+void gbox::SDLHandler::update()
 {
+  m_key_handler->update();
   SDL_Event event;
   while (SDL_PollEvent(&event))
   {
@@ -117,11 +119,13 @@ void gbox::SDLHandler::draw()
 
       case SDL_KEYDOWN :
       {
+        m_key_handler->press_key(gbox::sdl_keycode_to_gbox(event.key.keysym.sym));
         break;
       } // end of keydown
 
       case SDL_KEYUP :
       {
+        m_key_handler->release_key(gbox::sdl_keycode_to_gbox(event.key.keysym.sym));
         break;
       }
       default : break;

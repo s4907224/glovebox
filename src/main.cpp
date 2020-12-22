@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "core/core.h"
+#include "user_io/key_handler.h"
 
 int main()
 {

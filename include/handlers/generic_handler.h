@@ -2,6 +2,9 @@
 #define GBOX_GenericHandler_H
 
 #include <iostream>
+#include <memory>
+
+#include "user_io/key_handler.h"
 
 namespace gbox
 {
@@ -23,9 +26,11 @@ namespace gbox
       // property for ID
       const int& ID() {return m_ID;}
 
-      virtual void draw() {};
+      virtual void update() {};
 
       bool quit_requested() const;
+
+      const gbox::KeyHandler& get_key_handler();
 
     protected:
       static int m_instance_counter;
@@ -34,6 +39,8 @@ namespace gbox
       virtual bool init_window() {return false;};
 
       bool m_quit;
+
+      std::shared_ptr<gbox::KeyHandler> m_key_handler;
   };// class GenericHandler
 }// namespace gbox
 

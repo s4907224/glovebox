@@ -29,7 +29,7 @@ namespace gbox
       // property for ID
       const int& ID() {return m_ID;}
 
-      void draw();
+      void update();
 
     private:
       static int m_instance_counter;

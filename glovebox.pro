@@ -9,13 +9,15 @@ SOURCES += \
         src/*.cpp\
         src/core/*.cpp\
         src/handlers/*.cpp\
-        src/helpers/*.cpp
+        src/helpers/*.cpp\
+        src/user_io/*.cpp
 
 HEADERS += \
         include/*.h\
         include/core/*.h\
         include/handlers/*.h\
-        include/helpers/*.h
+        include/helpers/*.h\
+        include/user_io/*.h
 
 INCLUDEPATH += include
 
