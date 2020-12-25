@@ -7,10 +7,10 @@ gbox::KeyHandler::KeyHandler()
   m_ID = m_instance_counter++;
   std::cout<<"Ctor called for KeyHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
 
-  for (int i = 0; i < GBKC_right_gui + 1; i++)
+  for (int i = 0; i < GBSCANCODE_MAX_VAL + 1; i++)
   {
     m_keystates[i] = std::make_shared<gbox::KeyState>();
-    m_keystates[i]->keycode = i;
+    m_keystates[i]->scancode = i;
   }
 }
 
@@ -59,20 +59,19 @@ void gbox::KeyHandler::flush_keystates()
   }
 }
 
-void gbox::KeyHandler::press_key(int _keycode)
+void gbox::KeyHandler::press_key(int _scancode)
 {
-  std::cout<<"Pressing key with keycode: "<<_keycode<<'\n';
-  m_keystates[_keycode]->just_released = false;
-  m_keystates[_keycode]->just_pressed = !m_keystates[_keycode]->pressed;
-  m_keystates[_keycode]->pressed = true;
-  m_active_keys.insert(_keycode);
+  m_keystates[_scancode]->just_released = false;
+  m_keystates[_scancode]->just_pressed = !m_keystates[_scancode]->pressed;
+  m_keystates[_scancode]->pressed = true;
+  m_active_keys.insert(_scancode);
 }
 
-void gbox::KeyHandler::release_key(int _keycode)
+void gbox::KeyHandler::release_key(int _scancode)
 {
-  m_keystates[_keycode]->just_pressed = false;
-  m_keystates[_keycode]->just_released = m_keystates[_keycode]->pressed;
-  m_keystates[_keycode]->pressed = false;
+  m_keystates[_scancode]->just_pressed = false;
+  m_keystates[_scancode]->just_released = m_keystates[_scancode]->pressed;
+  m_keystates[_scancode]->pressed = false;
 }
 
 void gbox::KeyHandler::update()
@@ -84,7 +83,7 @@ void gbox::KeyHandler::update()
 
     if(!keystate->pressed)
     {
-      m_active_keys.erase(keystate->keycode);
+      m_active_keys.erase(keystate->scancode);
     }
   }
 }
@@ -93,9 +92,9 @@ std::vector<std::shared_ptr<gbox::KeyState>> gbox::KeyHandler::get_active_keys()
 {
   std::vector<std::shared_ptr<gbox::KeyState>> active_keys;
 
-  for(int keycode : m_active_keys)
+  for(int scancode : m_active_keys)
   {
-    active_keys.push_back(m_keystates[keycode]);
+    active_keys.push_back(m_keystates[scancode]);
   }
 
   return active_keys;

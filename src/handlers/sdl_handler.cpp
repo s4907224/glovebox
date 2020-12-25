@@ -119,13 +119,13 @@ void gbox::SDLHandler::update()
 
       case SDL_KEYDOWN :
       {
-        m_key_handler->press_key(gbox::sdl_keycode_to_gbox(event.key.keysym.sym));
+        m_key_handler->press_key(gbox::sdl_scancode_to_gbox(event.key.keysym.scancode));
         break;
       } // end of keydown
 
       case SDL_KEYUP :
       {
-        m_key_handler->release_key(gbox::sdl_keycode_to_gbox(event.key.keysym.sym));
+        m_key_handler->release_key(gbox::sdl_scancode_to_gbox(event.key.keysym.scancode));
         break;
       }
       default : break;

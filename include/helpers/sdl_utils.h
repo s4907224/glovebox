@@ -5,7 +5,7 @@
 
 namespace gbox
 {
-  int sdl_keycode_to_gbox(int _keycode);
+  int sdl_scancode_to_gbox(int _scancode);
 }// namespace gbox
 
 #endif // GBOXSDLUTILSH

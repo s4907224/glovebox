@@ -10,13 +10,13 @@ namespace gbox
     public:
       // dtor
       KeyState();
-      KeyState(int _keycode);
+      KeyState(int _scancode);
       ~KeyState() = default;
       // ctor
       bool pressed;
       bool just_pressed;
       bool just_released;
-      int keycode;
+      int scancode;
 
   };// struct KeyState
 }// namespace gbox

@@ -58,11 +58,15 @@ void gbox::Core::register_SDL_handler()
 
 void gbox::Core::update()
 {
-  std::cout<<"KEYCODES: ";
   m_handler->update();
+  std::cout<<"KEYCODES: ";
   for (std::shared_ptr<gbox::KeyState> keystate: m_handler->get_key_handler().get_active_keys())
   {
-    std::cout<<'['<<keystate->keycode<<"]\t";
+    std::cout<<'[';
+    if (keystate->just_pressed){std::cout<<'*';}
+    std::cout<<keystate->scancode;
+    if (keystate->just_released){std::cout<<'*';}
+    std::cout<<"]\t";
   }
   std::cout<<'\n';
 }

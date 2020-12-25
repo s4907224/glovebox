@@ -4,12 +4,12 @@ gbox::KeyState::KeyState() :
   pressed(false),
   just_pressed(false),
   just_released(false),
-  keycode(0)
+  scancode(0)
 {}
 
-gbox::KeyState::KeyState(int _keycode) : 
+gbox::KeyState::KeyState(int _scancode) : 
   pressed(false),
   just_pressed(false),
   just_released(false),
-  keycode(_keycode)
+  scancode(_scancode)
 {}
