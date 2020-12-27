@@ -50,8 +50,6 @@ namespace gbox
       static int m_instance_counter;
       int m_ID;
 
-      virtual bool init_window() {return false;};
-
       bool m_quit;
       bool m_is_fullscreen;
       bool m_borderless;
@@ -63,6 +61,8 @@ namespace gbox
       std::array<int, 2> m_windowed_position;
 
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
+
+      virtual bool init_window() {return false;};
   };// class GenericHandler
 }// namespace gbox
 

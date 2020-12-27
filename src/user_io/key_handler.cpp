@@ -10,11 +10,7 @@ gbox::KeyHandler::KeyHandler()
   std::cout<<"Ctor called for KeyHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   #endif
 
-  for (int i = 0; i < GBSCANCODE_MAX_VAL + 1; i++)
-  {
-    m_keystates[i] = std::make_shared<gbox::KeyState>();
-    m_keystates[i]->scancode = i;
-  }
+ flush_keystates();
 }
 
 gbox::KeyHandler::~KeyHandler()
@@ -27,6 +23,9 @@ gbox::KeyHandler::~KeyHandler()
 gbox::KeyHandler::KeyHandler(const KeyHandler& _keyhandler_other)
 {
   m_ID = m_instance_counter++;
+  m_keystates = _keyhandler_other.m_keystates;
+  m_active_keys = _keyhandler_other.m_active_keys;
+  m_keybinds = _keyhandler_other.m_keybinds;
 
   #ifdef DEBUG_PRINTS  
   std::cout<<"Copy ctor called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
@@ -36,6 +35,9 @@ gbox::KeyHandler::KeyHandler(const KeyHandler& _keyhandler_other)
 gbox::KeyHandler& gbox::KeyHandler::operator=(const KeyHandler& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+  m_keystates = _keyhandler_other.m_keystates;
+  m_active_keys = _keyhandler_other.m_active_keys;
+  m_keybinds = _keyhandler_other.m_keybinds;
 
   #ifdef DEBUG_PRINTS  
   std::cout<<"Copy assignment called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
@@ -47,6 +49,9 @@ gbox::KeyHandler& gbox::KeyHandler::operator=(const KeyHandler& _keyhandler_othe
 gbox::KeyHandler::KeyHandler(KeyHandler&& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+  m_keystates = _keyhandler_other.m_keystates;
+  m_active_keys = _keyhandler_other.m_active_keys;
+  m_keybinds = _keyhandler_other.m_keybinds;
 
   #ifdef DEBUG_PRINTS  
   std::cout<<"Move ctor called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
@@ -58,6 +63,9 @@ gbox::KeyHandler::KeyHandler(KeyHandler&& _keyhandler_other)
 gbox::KeyHandler& gbox::KeyHandler::operator=(KeyHandler&& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+  m_keystates = _keyhandler_other.m_keystates;
+  m_active_keys = _keyhandler_other.m_active_keys;
+  m_keybinds = _keyhandler_other.m_keybinds;
 
   #ifdef DEBUG_PRINTS  
   std::cout<<"Move assignment called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
@@ -69,13 +77,10 @@ gbox::KeyHandler& gbox::KeyHandler::operator=(KeyHandler&& _keyhandler_other)
 
 void gbox::KeyHandler::flush_keystates()
 {
-  std::cout<<"Flush Keystates\n";
-  for (auto &keystate: m_keystates)
+  for (int i = 0; i < GBSCANCODE_MAX_VAL + 1; i++)
   {
-    std::cout<<"process keystates\n";
-    keystate->just_pressed = false;
-    keystate->just_released = false;
-    keystate->just_released = false;
+    m_keystates[i] = std::make_shared<gbox::KeyState>();
+    m_keystates[i]->scancode = i;
   }
 }
 

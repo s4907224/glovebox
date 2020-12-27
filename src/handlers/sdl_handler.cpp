@@ -26,6 +26,8 @@ gbox::SDLHandler::~SDLHandler()
 gbox::SDLHandler::SDLHandler(const SDLHandler& _SDLgbox_other)
 {
   m_ID = m_instance_counter++;
+  m_window = _SDLgbox_other.m_window;
+  m_context = _SDLgbox_other.m_context;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
@@ -35,6 +37,8 @@ gbox::SDLHandler::SDLHandler(const SDLHandler& _SDLgbox_other)
 gbox::SDLHandler& gbox::SDLHandler::operator=(const SDLHandler& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
+  m_window = _SDLgbox_other.m_window;
+  m_context = _SDLgbox_other.m_context;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
@@ -46,6 +50,8 @@ gbox::SDLHandler& gbox::SDLHandler::operator=(const SDLHandler& _SDLgbox_other)
 gbox::SDLHandler::SDLHandler(SDLHandler&& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
+  m_window = _SDLgbox_other.m_window;
+  m_context = _SDLgbox_other.m_context;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';
@@ -57,6 +63,8 @@ gbox::SDLHandler::SDLHandler(SDLHandler&& _SDLgbox_other)
 gbox::SDLHandler& gbox::SDLHandler::operator=(SDLHandler&& _SDLgbox_other)
 {
   m_ID = _SDLgbox_other.m_ID;
+  m_window = _SDLgbox_other.m_window;
+  m_context = _SDLgbox_other.m_context;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for SDLHandler with ID "<<m_ID<<" and SDLHandler with ID "<<_SDLgbox_other.m_ID<<std::dec<<'\n';

@@ -17,7 +17,6 @@ gbox::GenericHandler::GenericHandler() :
 
 gbox::GenericHandler::~GenericHandler()
 {
-
   #ifdef DEBUG_PRINTS
   std::cout<<"Dtor called for GenericHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   #endif
@@ -26,6 +25,14 @@ gbox::GenericHandler::~GenericHandler()
 gbox::GenericHandler::GenericHandler(const GenericHandler& _GenericHandler_other)
 {
   m_ID = m_instance_counter++;
+  m_quit = _GenericHandler_other.m_quit;
+  m_is_fullscreen = _GenericHandler_other.m_is_fullscreen;
+  m_borderless = _GenericHandler_other.m_borderless;
+  m_resolution = _GenericHandler_other.m_resolution;
+  m_alt_resolution = _GenericHandler_other.m_alt_resolution;
+  m_display_resolution = _GenericHandler_other.m_display_resolution;
+  m_windowed_position = _GenericHandler_other.m_windowed_position;
+  m_key_handler = _GenericHandler_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<std::dec<<'\n';
@@ -35,6 +42,14 @@ gbox::GenericHandler::GenericHandler(const GenericHandler& _GenericHandler_other
 gbox::GenericHandler& gbox::GenericHandler::operator=(const GenericHandler& _GenericHandler_other)
 {
   m_ID = _GenericHandler_other.m_ID;
+  m_quit = _GenericHandler_other.m_quit;
+  m_is_fullscreen = _GenericHandler_other.m_is_fullscreen;
+  m_borderless = _GenericHandler_other.m_borderless;
+  m_resolution = _GenericHandler_other.m_resolution;
+  m_alt_resolution = _GenericHandler_other.m_alt_resolution;
+  m_display_resolution = _GenericHandler_other.m_display_resolution;
+  m_windowed_position = _GenericHandler_other.m_windowed_position;
+  m_key_handler = _GenericHandler_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<std::dec<<'\n';
@@ -45,6 +60,14 @@ gbox::GenericHandler& gbox::GenericHandler::operator=(const GenericHandler& _Gen
 gbox::GenericHandler::GenericHandler(GenericHandler&& _GenericHandler_other)
 {
   m_ID = _GenericHandler_other.m_ID;
+  m_quit = _GenericHandler_other.m_quit;
+  m_is_fullscreen = _GenericHandler_other.m_is_fullscreen;
+  m_borderless = _GenericHandler_other.m_borderless;
+  m_resolution = _GenericHandler_other.m_resolution;
+  m_alt_resolution = _GenericHandler_other.m_alt_resolution;
+  m_display_resolution = _GenericHandler_other.m_display_resolution;
+  m_windowed_position = _GenericHandler_other.m_windowed_position;
+  m_key_handler = _GenericHandler_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<std::dec<<'\n';
@@ -55,6 +78,14 @@ gbox::GenericHandler::GenericHandler(GenericHandler&& _GenericHandler_other)
 gbox::GenericHandler& gbox::GenericHandler::operator=(GenericHandler&& _GenericHandler_other)
 {
   m_ID = _GenericHandler_other.m_ID;
+  m_quit = _GenericHandler_other.m_quit;
+  m_is_fullscreen = _GenericHandler_other.m_is_fullscreen;
+  m_borderless = _GenericHandler_other.m_borderless;
+  m_resolution = _GenericHandler_other.m_resolution;
+  m_alt_resolution = _GenericHandler_other.m_alt_resolution;
+  m_display_resolution = _GenericHandler_other.m_display_resolution;
+  m_windowed_position = _GenericHandler_other.m_windowed_position;
+  m_key_handler = _GenericHandler_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for GenericHandler with ID "<<m_ID<<" and GenericHandler with ID "<<_GenericHandler_other.m_ID<<std::dec<<'\n';

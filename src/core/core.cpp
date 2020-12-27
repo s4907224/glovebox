@@ -24,6 +24,7 @@ gbox::Core::Core(const Core& _core_other)
 {
   m_ID = m_instance_counter++;
   m_handler = _core_other.m_handler;
+  m_key_handler = _core_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for Core with ID "<<m_ID<<" and Core with ID "<<_core_other.m_ID<<std::dec<<'\n';
@@ -34,6 +35,7 @@ gbox::Core& gbox::Core::operator=(const Core& _core_other)
 {
   m_ID = _core_other.m_ID;
   m_handler = _core_other.m_handler;
+  m_key_handler = _core_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for Core with ID "<<m_ID<<" and Core with ID "<<_core_other.m_ID<<std::dec<<'\n';
@@ -46,6 +48,7 @@ gbox::Core::Core(Core&& _core_other)
 {
   m_ID = _core_other.m_ID;
   m_handler = _core_other.m_handler;
+  m_key_handler = _core_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for Core with ID "<<m_ID<<" and Core with ID "<<_core_other.m_ID<<std::dec<<'\n';
@@ -58,6 +61,7 @@ gbox::Core& gbox::Core::operator=(Core&& _core_other)
 {
   m_ID = _core_other.m_ID;
   m_handler = _core_other.m_handler;
+  m_key_handler = _core_other.m_key_handler;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for Core with ID "<<m_ID<<" and Core with ID "<<_core_other.m_ID<<std::dec<<'\n';
