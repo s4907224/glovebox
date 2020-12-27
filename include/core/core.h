@@ -7,7 +7,8 @@
 #include "handlers/generic_handler.h"
 #include "handlers/sdl_handler.h"
 #include "user_io/key_handler.h"
-#include "helpers/gl_helper.h"
+
+// #define DEBUG_PRINTS;
 
 namespace gbox
 {
@@ -41,7 +42,6 @@ namespace gbox
       int m_ID;
 
       std::shared_ptr<gbox::GenericHandler> m_handler;
-      std::shared_ptr<gbox::GLHelper> m_helper;
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
 
       void update();

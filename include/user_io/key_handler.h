@@ -8,12 +8,13 @@
 #include <vector>
 
 #include "user_io/key_state.h"
+#include "user_io/key_binds.h"
 
 namespace gbox
 {
   enum scancodes{
-    GBSC_unknown,
-    GBSC_A,
+    GBSC_unknown=0,
+    GBSC_A=1,
     GBSC_B,
     GBSC_C,
     GBSC_D,
@@ -284,6 +285,10 @@ namespace gbox
 
       std::vector<std::shared_ptr<gbox::KeyState>> get_active_keys() const;
 
+      void register_keybind(int _scancode, int _keybind);
+
+      std::set<int> get_keybinds(int _scancode) const;
+
     private:
       static int m_instance_counter;
       int m_ID;
@@ -291,6 +296,7 @@ namespace gbox
       std::array<std::shared_ptr<gbox::KeyState>, GBSCANCODE_MAX_VAL + 1> m_keystates;
       std::set<int> m_active_keys;
 
+      std::array<std::set<int>, GBSCANCODE_MAX_VAL + 1> m_keybinds;
   };// class KeyHandler
 }// namespace gbox
 

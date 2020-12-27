@@ -30,6 +30,10 @@ namespace gbox
       const int& ID() {return m_ID;}
 
       void update();
+      
+      bool toggle_fullscreen();
+      void enter_fullscreen();
+      void exit_fullscreen();
 
     private:
       static int m_instance_counter;

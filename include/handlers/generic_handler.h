@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+#include <array>
 
 #include "user_io/key_handler.h"
 
@@ -28,9 +29,22 @@ namespace gbox
 
       virtual void update() {};
 
+      virtual bool toggle_fullscreen() {return false;};
+      virtual void enter_fullscreen() {};
+      virtual void exit_fullscreen() {};
+
       bool quit_requested() const;
+      void request_quit();
 
       const gbox::KeyHandler& get_key_handler();
+      void register_keybind(int _scancode, int _keybind);
+
+      std::array<int, 2> get_resolution() const;
+
+      int width() const;
+      int height() const;
+
+      void set_borderless_fullscreen(bool _borderless);
 
     protected:
       static int m_instance_counter;
@@ -39,6 +53,14 @@ namespace gbox
       virtual bool init_window() {return false;};
 
       bool m_quit;
+      bool m_is_fullscreen;
+      bool m_borderless;
+
+      std::array<int, 2> m_resolution;
+      std::array<int, 2> m_alt_resolution;
+      std::array<int, 2> m_display_resolution;
+
+      std::array<int, 2> m_windowed_position;
 
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
   };// class GenericHandler

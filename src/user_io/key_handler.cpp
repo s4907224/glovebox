@@ -5,7 +5,10 @@ int gbox::KeyHandler::m_instance_counter = 0;
 gbox::KeyHandler::KeyHandler()
 {
   m_ID = m_instance_counter++;
+
+  #ifdef DEBUG_PRINTS  
   std::cout<<"Ctor called for KeyHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
+  #endif
 
   for (int i = 0; i < GBSCANCODE_MAX_VAL + 1; i++)
   {
@@ -16,33 +19,50 @@ gbox::KeyHandler::KeyHandler()
 
 gbox::KeyHandler::~KeyHandler()
 {
+  #ifdef DEBUG_PRINTS
   std::cout<<"Dtor called for KeyHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
+  #endif
 }
 
 gbox::KeyHandler::KeyHandler(const KeyHandler& _keyhandler_other)
 {
   m_ID = m_instance_counter++;
+
+  #ifdef DEBUG_PRINTS  
   std::cout<<"Copy ctor called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
+  #endif
 }
 
 gbox::KeyHandler& gbox::KeyHandler::operator=(const KeyHandler& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+
+  #ifdef DEBUG_PRINTS  
   std::cout<<"Copy assignment called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
+  #endif
+
   return *this;
 }
 
 gbox::KeyHandler::KeyHandler(KeyHandler&& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+
+  #ifdef DEBUG_PRINTS  
   std::cout<<"Move ctor called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
+  #endif
+
   _keyhandler_other.m_ID = -1;
 }
 
 gbox::KeyHandler& gbox::KeyHandler::operator=(KeyHandler&& _keyhandler_other)
 {
   m_ID = _keyhandler_other.m_ID;
+
+  #ifdef DEBUG_PRINTS  
   std::cout<<"Move assignment called for KeyHandler with ID "<<m_ID<<" and KeyHandler with ID "<<_keyhandler_other.m_ID<<std::dec<<'\n';
+  #endif
+
   _keyhandler_other.m_ID = -1;
   return *this;
 }
@@ -98,4 +118,14 @@ std::vector<std::shared_ptr<gbox::KeyState>> gbox::KeyHandler::get_active_keys()
   }
 
   return active_keys;
+}
+
+void gbox::KeyHandler::register_keybind(int _scancode, int _keybind)
+{
+  m_keybinds[_scancode].insert(_keybind);
+}
+
+std::set<int> gbox::KeyHandler::get_keybinds(int _scancode) const
+{
+  return m_keybinds[_scancode];
 }
