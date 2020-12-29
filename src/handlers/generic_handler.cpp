@@ -15,6 +15,8 @@ gbox::GenericHandler::GenericHandler() :
   #endif
 }
 
+// gbox::GenericHandler::~GenericHandler() {}
+
 gbox::GenericHandler::~GenericHandler()
 {
   #ifdef DEBUG_PRINTS
@@ -132,4 +134,10 @@ void gbox::GenericHandler::register_keybind(int _scancode, int _keybind)
 void gbox::GenericHandler::set_borderless_fullscreen(bool _borderless)
 {
   m_borderless = _borderless;
+}
+
+void gbox::GenericHandler::resize_gl()
+{
+  glViewport(0, 0, width(), height());
+  std::cout<<"Resized GL Viewport to "<<width()<<", "<<height()<<'\n';
 }

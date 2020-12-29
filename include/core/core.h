@@ -4,11 +4,14 @@
 #include <iostream>
 #include <memory>
 
+#include "helpers/gl_utils.h"
+
+#include <glm/glm.hpp>
+
 #include "handlers/generic_handler.h"
 #include "handlers/sdl_handler.h"
 #include "user_io/key_handler.h"
-
-// #define DEBUG_PRINTS;
+#include "user_io/key_binds.h"
 
 namespace gbox
 {
@@ -45,6 +48,13 @@ namespace gbox
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
 
       void update();
+
+      bool init_GL();
+
+      void init_triangle_VAO();
+      void draw();
+
+      unsigned int VAO, VBO, shader_program;
   };// class Core
 }// namespace gbox
 

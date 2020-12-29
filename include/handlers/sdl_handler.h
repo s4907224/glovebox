@@ -2,8 +2,7 @@
 #define GBOX_SDLgbox_H
 
 #include <iostream>
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+#include "helpers/gl_utils.h"
 #include <SDL.h>
 #include <SDL_mixer.h>
 
@@ -40,6 +39,8 @@ namespace gbox
       int m_ID;
 
       bool init_window();
+
+      void handle_resize();
 
       SDL_Window* m_window;
       SDL_GLContext m_context;

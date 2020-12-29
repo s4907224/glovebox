@@ -22,6 +22,7 @@ namespace gbox
       Vertex& operator=(Vertex&& _vertex_other);
 
     private:
+      
   };// class Vertex
 }// namespace gbox
 

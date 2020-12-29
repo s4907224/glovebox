@@ -20,7 +20,7 @@ gbox::SDLHandler::~SDLHandler()
   std::cout<<"Dtor called for SDLHandler with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   #endif
 
-  delete m_window;
+  // delete m_window;
 }
 
 gbox::SDLHandler::SDLHandler(const SDLHandler& _SDLgbox_other)
@@ -111,8 +111,8 @@ bool gbox::SDLHandler::init_window()
     return false;
   }
 
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   m_context = SDL_GL_CreateContext(m_window);
@@ -133,6 +133,8 @@ bool gbox::SDLHandler::init_window()
 
 void gbox::SDLHandler::update()
 {
+  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT);
   m_key_handler->update();
   SDL_Event event;
   while (SDL_PollEvent(&event))
@@ -152,6 +154,7 @@ void gbox::SDLHandler::update()
           {
             std::cout<<"SIZE CHANGED\n";
             SDL_GetWindowSize(m_window,&m_resolution[0], &m_resolution[1]);
+            handle_resize();
             break;
           }
           case SDL_WINDOWEVENT_MOVED :
@@ -223,4 +226,9 @@ void gbox::SDLHandler::exit_fullscreen()
   SDL_SetWindowFullscreen(m_window, 0);
   SDL_SetWindowSize(m_window, width(), height());
   SDL_SetWindowPosition(m_window, m_windowed_position[0], m_windowed_position[1]);
+}
+
+void gbox::SDLHandler::handle_resize()
+{
+  resize_gl();
 }

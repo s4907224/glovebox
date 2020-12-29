@@ -5,6 +5,8 @@
 #include <memory>
 #include <array>
 
+#include "helpers/gl_utils.h"
+
 #include "user_io/key_handler.h"
 
 namespace gbox
@@ -13,7 +15,7 @@ namespace gbox
   {
     public:
       // dtor
-      ~GenericHandler();
+      virtual ~GenericHandler() = 0;
       // ctor
       GenericHandler();
       // copy ctor
@@ -27,11 +29,11 @@ namespace gbox
       // property for ID
       const int& ID() {return m_ID;}
 
-      virtual void update() {};
+      virtual void update() = 0;
 
-      virtual bool toggle_fullscreen() {return false;};
-      virtual void enter_fullscreen() {};
-      virtual void exit_fullscreen() {};
+      virtual bool toggle_fullscreen() = 0;
+      virtual void enter_fullscreen() = 0;
+      virtual void exit_fullscreen() = 0;
 
       bool quit_requested() const;
       void request_quit();
@@ -62,7 +64,10 @@ namespace gbox
 
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
 
-      virtual bool init_window() {return false;};
+      virtual bool init_window() = 0;
+
+      virtual void handle_resize() =0;
+      void resize_gl();
   };// class GenericHandler
 }// namespace gbox
 
