@@ -139,5 +139,5 @@ void gbox::GenericHandler::set_borderless_fullscreen(bool _borderless)
 void gbox::GenericHandler::resize_gl()
 {
   glViewport(0, 0, width(), height());
-  std::cout<<"Resized GL Viewport to "<<width()<<", "<<height()<<'\n';
+  std::cout<<"Resized GL Viewport to ["<<width()<<'x'<<height()<<"]\n";
 }

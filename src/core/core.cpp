@@ -108,7 +108,6 @@ void gbox::Core::start_main_loop()
   m_handler->register_keybind(GBSC_escape, GBIND_exit);
   m_handler->set_borderless_fullscreen(true);
 
-  init_GL();
   init_triangle_VAO();
 
   while (!m_handler->quit_requested())
@@ -116,12 +115,6 @@ void gbox::Core::start_main_loop()
     update();
     draw();
   }
-}
-
-bool gbox::Core::init_GL()
-{
-  std::cout<<"Init GL\n";
-  return true;
 }
 
 void gbox::Core::init_triangle_VAO()

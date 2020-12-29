@@ -152,7 +152,6 @@ void gbox::SDLHandler::update()
         {
           case SDL_WINDOWEVENT_SIZE_CHANGED :
           {
-            std::cout<<"SIZE CHANGED\n";
             SDL_GetWindowSize(m_window,&m_resolution[0], &m_resolution[1]);
             handle_resize();
             break;

@@ -49,8 +49,6 @@ namespace gbox
 
       void update();
 
-      bool init_GL();
-
       void init_triangle_VAO();
       void draw();
 
