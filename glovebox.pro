@@ -17,6 +17,7 @@ SOURCES += \
         src/geometry/*.cpp\
         src/handlers/*.cpp\
         src/helpers/*.cpp\
+        src/shader/*.cpp\
         src/user_io/*.cpp
 
 HEADERS += \
@@ -25,6 +26,7 @@ HEADERS += \
         include/geometry/*.h\
         include/handlers/*.h\
         include/helpers/*.h\
+        include/shader/*.h\
         include/user_io/*.h
 
 INCLUDEPATH += include

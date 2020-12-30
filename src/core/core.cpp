@@ -110,8 +110,11 @@ void gbox::Core::start_main_loop()
 
   init_GL();
 
-  m_shader_program = gbox::compile_basic_shader_program("shaders/basic/flat_colour.vert", "shaders/basic/flat_colour.frag");
-  glUseProgram(m_shader_program);
+  std::string vert_path = "shaders/basic/flat_colour.vert";
+  std::string frag_path = "shaders/basic/flat_colour.frag";
+
+  gbox::ShaderProgram prog(vert_path, frag_path);
+  prog.use();
 
   m_VAOs.push_back(std::make_shared<gbox::VAO>());
 

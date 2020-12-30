@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include <glm/glm.hpp>
+#include "helpers/gl_utils.h"
 
 namespace gbox
 {
