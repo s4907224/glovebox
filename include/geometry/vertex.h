@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <glm/glm.hpp>
+
 namespace gbox
 {
   class Vertex
@@ -22,6 +24,9 @@ namespace gbox
       Vertex& operator=(Vertex&& _vertex_other);
 
     private:
+      glm::vec3 m_position;
+      glm::vec3 m_normal;
+      glm::vec2 m_tex_coord;
       
   };// class Vertex
 }// namespace gbox

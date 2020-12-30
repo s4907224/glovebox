@@ -133,8 +133,6 @@ bool gbox::SDLHandler::init_window()
 
 void gbox::SDLHandler::update()
 {
-  glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-  glClear(GL_COLOR_BUFFER_BIT);
   m_key_handler->update();
   SDL_Event event;
   while (SDL_PollEvent(&event))

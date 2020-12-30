@@ -14,6 +14,7 @@ CONFIG += sdk_no_version_check
 SOURCES += \
         src/*.cpp\
         src/core/*.cpp\
+        src/geometry/*.cpp\
         src/handlers/*.cpp\
         src/helpers/*.cpp\
         src/user_io/*.cpp
@@ -21,12 +22,14 @@ SOURCES += \
 HEADERS += \
         include/*.h\
         include/core/*.h\
+        include/geometry/*.h\
         include/handlers/*.h\
         include/helpers/*.h\
         include/user_io/*.h
 
 INCLUDEPATH += include
 INCLUDEPATH += /usr/local/Cellar/glm/0.9.9.8/include
+INCLUDEPATH += /usr/local/include/
 
 QMAKE_CXX = g++
 
@@ -36,4 +39,5 @@ LIBS+=$$system(sdl2-config  --libs)
 LIBS+=-lSDL2_mixer
 LIBS+=-framework GLUT
 LIBS+=-framework OpenGL
+LIBS+=-lGLEW
 message(output from sdl2-config --libs added to LIB=$$LIBS)

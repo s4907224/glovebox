@@ -6,12 +6,11 @@
 
 #include "helpers/gl_utils.h"
 
-#include <glm/glm.hpp>
-
 #include "handlers/generic_handler.h"
 #include "handlers/sdl_handler.h"
 #include "user_io/key_handler.h"
 #include "user_io/key_binds.h"
+#include "geometry/VAO.h"
 
 namespace gbox
 {
@@ -52,7 +51,13 @@ namespace gbox
       void init_triangle_VAO();
       void draw();
 
-      unsigned int VAO, VBO, shader_program;
+      void init_GL();
+
+      unsigned int m_shader_program;
+
+      std::vector<std::shared_ptr<gbox::VAO>> m_VAOs;
+      // gbox::VAO m_vao;
+
   };// class Core
 }// namespace gbox
 

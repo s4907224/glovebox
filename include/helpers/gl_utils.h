@@ -5,8 +5,8 @@
 #include <fstream>
 #include <iostream>
 
-#include <OpenGL/gl.h>
-#include <OpenGL/glext.h>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
 
 namespace gbox
 {
