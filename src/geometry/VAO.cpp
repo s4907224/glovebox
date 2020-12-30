@@ -29,7 +29,6 @@ gbox::VAO::VAO(const VAO& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for VAO with ID "<<m_ID<<" and VAO with ID "<<_vao_other.m_ID<<'\n';
@@ -42,7 +41,6 @@ gbox::VAO& gbox::VAO::operator=(const VAO& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for VAO with ID "<<m_ID<<" and VAO with ID "<<_vao_other.m_ID<<'\n';
@@ -57,7 +55,6 @@ gbox::VAO::VAO(VAO&& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for VAO with ID "<<m_ID<<" and VAO with ID "<<_vao_other.m_ID<<'\n';
@@ -72,7 +69,6 @@ gbox::VAO& gbox::VAO::operator=(VAO&& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for VAO with ID "<<m_ID<<" and VAO with ID "<<_vao_other.m_ID<<'\n';
@@ -108,9 +104,4 @@ void gbox::VAO::draw()
 {
   glBindVertexArray(m_VAO_id);
   glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(3));
-}
-
-void gbox::VAO::load_from_obj()
-{
-  
 }

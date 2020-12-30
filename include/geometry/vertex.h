@@ -26,8 +26,6 @@ namespace gbox
       // move assignment operator
       Vertex& operator=(Vertex&& _vertex_other);
 
-      glm::vec3 m_position
-
     private:
       glm::vec3 m_position;
       glm::vec3 m_normal;
