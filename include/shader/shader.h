@@ -40,6 +40,8 @@ namespace gbox
       std::string m_file_path;
       GLuint m_shader_id;
       GLenum m_shader_type;
+
+      bool m_compiled;
   };// class Shader
 }// namespace gbox
 

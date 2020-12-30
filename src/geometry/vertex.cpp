@@ -1,6 +1,39 @@
 #include "geometry/vertex.h"
 
-gbox::Vertex::Vertex()
+gbox::Vertex::Vertex(glm::vec3 _position, glm::vec3 _normal, glm::vec2 _tex_coord) :
+  m_position(_position),
+  m_normal(_normal),
+  m_tex_coord(_tex_coord)
+{
+  #ifdef DEBUG_PRINTS
+  std::cout<<"Ctor called for Vertex @"<<std::hex<<this<<std::dec<<'\n';
+  #endif
+}
+
+gbox::Vertex::Vertex(glm::vec3 _position, glm::vec3 _normal) :
+  m_position(_position),
+  m_normal(_normal),
+  m_tex_coord(0.f, 0.f)
+{
+  #ifdef DEBUG_PRINTS
+  std::cout<<"Ctor called for Vertex @"<<std::hex<<this<<std::dec<<'\n';
+  #endif
+}
+
+gbox::Vertex::Vertex(glm::vec3 _position, glm::vec2 _tex_coord) :
+  m_position(_position),
+  m_normal(0.f, 0.f, 1.f),
+  m_tex_coord(_tex_coord)
+{
+  #ifdef DEBUG_PRINTS
+  std::cout<<"Ctor called for Vertex @"<<std::hex<<this<<std::dec<<'\n';
+  #endif
+}
+
+gbox::Vertex::Vertex(glm::vec3 _position) :
+  m_position(_position),
+  m_normal({0.f, 0.f, 1.f}),
+  m_tex_coord(0.f, 0.f)
 {
   #ifdef DEBUG_PRINTS
   std::cout<<"Ctor called for Vertex @"<<std::hex<<this<<std::dec<<'\n';

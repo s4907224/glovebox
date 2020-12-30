@@ -2,6 +2,7 @@
 #define GBOX_VAO_H
 
 #include <iostream>
+#include <vector>
 #include <string>
 
 #include "helpers/gl_utils.h"
@@ -15,7 +16,7 @@ namespace gbox
       // dtor
       ~VAO();
       // ctor
-      VAO();
+      VAO(std::string _file_path);
       // copy ctor
       VAO(const VAO& _vao_other);
       // copy assignment operator
@@ -35,14 +36,6 @@ namespace gbox
 
       GLuint m_VAO_id;
       GLuint m_VBO_id;
-
-      glm::mat4 m_model_matrix;
-
-      bool m_vert_data_is_dynamic;
-
-      // std::vector<gbox::Vertex> m_vertex_data;
-
-      void load_from_obj(std::string _obj_file_path);
 
       void create_VAO();
   };// class VAO

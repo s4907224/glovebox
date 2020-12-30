@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <memory>
+#include <chrono>
+#include <map>
 
 #include "helpers/gl_utils.h"
 
@@ -36,9 +38,18 @@ namespace gbox
       void register_SDL_handler();
       void register_SDL_handler(std::shared_ptr<gbox::SDLHandler> _sdl_handler);
 
-      void start_main_loop();
+      bool quit_requested() const;
 
-      bool quit_requested();
+      void register_keybind(int _scancode, int _keybind);
+
+      void update();
+
+      const gbox::VAO& add_VAO(std::string _model_file);
+
+      std::shared_ptr<gbox::Shader> register_shader(std::string _shader_file);
+      std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::string _shader_program_name, std::vector<std::string> _shader_files);
+
+      void use_shader_program(std::string _shader_program_name);
 
     private:
       static int m_instance_counter;
@@ -47,14 +58,19 @@ namespace gbox
       std::shared_ptr<gbox::GenericHandler> m_handler;
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
 
-      void update();
-
       void init_triangle_VAO();
       void draw();
 
       void init_GL();
 
       std::vector<std::shared_ptr<gbox::VAO>> m_VAOs;
+
+      std::map<std::string, std::shared_ptr<gbox::Shader>> m_shaders;
+      std::map<std::string, std::shared_ptr<gbox::ShaderProgram>> m_shader_programs;
+
+      bool m_quit;
+
+      std::chrono::time_point<std::chrono::system_clock> m_time_of_last_update;
       // gbox::VAO m_vao;
 
   };// class Core

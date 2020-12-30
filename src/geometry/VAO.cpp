@@ -2,7 +2,7 @@
 
 int gbox::VAO::m_instance_counter = 0;
 
-gbox::VAO::VAO()
+gbox::VAO::VAO(std::string _file_path)
 {
   m_ID = m_instance_counter++;
 
@@ -29,7 +29,6 @@ gbox::VAO::VAO(const VAO& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_model_matrix = _vao_other.m_model_matrix;
   m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
@@ -43,7 +42,6 @@ gbox::VAO& gbox::VAO::operator=(const VAO& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_model_matrix = _vao_other.m_model_matrix;
   m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
@@ -59,7 +57,6 @@ gbox::VAO::VAO(VAO&& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_model_matrix = _vao_other.m_model_matrix;
   m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
@@ -75,7 +72,6 @@ gbox::VAO& gbox::VAO::operator=(VAO&& _vao_other)
 
   m_VAO_id = _vao_other.m_VAO_id;
   m_VBO_id = _vao_other.m_VBO_id;
-  m_model_matrix = _vao_other.m_model_matrix;
   m_vert_data_is_dynamic = _vao_other.m_vert_data_is_dynamic;
 
   #ifdef DEBUG_PRINTS
@@ -114,7 +110,7 @@ void gbox::VAO::draw()
   glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(3));
 }
 
-void gbox::VAO::load_from_obj(std::string _obj_file_path)
+void gbox::VAO::load_from_obj()
 {
   
 }

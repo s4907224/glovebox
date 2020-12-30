@@ -4,7 +4,8 @@ int gbox::Shader::m_instance_counter = 0;
 
 gbox::Shader::Shader(std::string _file_path, GLenum _shader_type) :
   m_file_path(_file_path),
-  m_shader_type(_shader_type)
+  m_shader_type(_shader_type),
+  m_compiled(false)
 {
   m_ID = m_instance_counter++;
 
@@ -14,7 +15,8 @@ gbox::Shader::Shader(std::string _file_path, GLenum _shader_type) :
 }
 
 gbox::Shader::Shader(std::string _file_path) :
-  m_file_path(_file_path)
+  m_file_path(_file_path),
+  m_compiled(false)
 {
   m_ID = m_instance_counter++;
 
@@ -48,6 +50,7 @@ gbox::Shader::Shader(const Shader& _shader_other)
   m_file_path = _shader_other.m_file_path;
   m_shader_id = _shader_other.m_shader_id;
   m_shader_type = _shader_other.m_shader_type;
+  m_compiled = _shader_other.m_compiled;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for Shader with ID "<<m_ID<<" and Shader with ID "<<_shader_other.m_ID<<'\n';
@@ -61,6 +64,7 @@ gbox::Shader& gbox::Shader::operator=(const Shader& _shader_other)
   m_file_path = _shader_other.m_file_path;
   m_shader_id = _shader_other.m_shader_id;
   m_shader_type = _shader_other.m_shader_type;
+  m_compiled = _shader_other.m_compiled;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for Shader with ID "<<m_ID<<" and Shader with ID "<<_shader_other.m_ID<<'\n';
@@ -76,6 +80,7 @@ gbox::Shader::Shader(Shader&& _shader_other)
   m_file_path = _shader_other.m_file_path;
   m_shader_id = _shader_other.m_shader_id;
   m_shader_type = _shader_other.m_shader_type;
+  m_compiled = _shader_other.m_compiled;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for Shader with ID "<<m_ID<<" and Shader with ID "<<_shader_other.m_ID<<'\n';
@@ -91,6 +96,7 @@ gbox::Shader& gbox::Shader::operator=(Shader&& _shader_other)
   m_file_path = _shader_other.m_file_path;
   m_shader_id = _shader_other.m_shader_id;
   m_shader_type = _shader_other.m_shader_type;
+  m_compiled = _shader_other.m_compiled;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for Shader with ID "<<m_ID<<" and Shader with ID "<<_shader_other.m_ID<<'\n';
@@ -107,6 +113,11 @@ const GLuint& gbox::Shader::get_shader_ID() const
 
 void gbox::Shader::compile()
 {
+  if(m_compiled)
+  {
+    return;
+  }
+
   std::ifstream shader_file(m_file_path);
   std::string shader_contents((std::istreambuf_iterator<char>(shader_file)), 
   std::istreambuf_iterator<char>());
@@ -126,4 +137,5 @@ void gbox::Shader::compile()
     glGetShaderInfoLog(m_shader_id, 512, NULL, infoLog);
     std::cout << "ERROR: SHADER COMPILATION FAILED (" <<m_file_path << ")\n" << infoLog <<'\n';
   }
+  m_compiled = true;
 }

@@ -167,5 +167,6 @@ void gbox::ShaderProgram::link(std::vector<std::shared_ptr<gbox::Shader>> _shade
 
 void gbox::ShaderProgram::use() const
 {
+  std::cout<<"About to use shader program with ID "<<m_shader_program_id<<'\n';
   glUseProgram(m_shader_program_id);
 }

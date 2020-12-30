@@ -13,7 +13,10 @@ namespace gbox
       // dtor
       ~Vertex();
       // ctor
-      Vertex();
+      Vertex(glm::vec3 _position, glm::vec3 _normal, glm::vec2 _tex_coord);
+      Vertex(glm::vec3 _position, glm::vec3 _normal);
+      Vertex(glm::vec3 _position, glm::vec2 _tex_coord);
+      Vertex(glm::vec3 _position);
       // copy ctor
       Vertex(const Vertex& _vertex_other);
       // copy assignment operator
@@ -22,6 +25,8 @@ namespace gbox
       Vertex(Vertex&& _vertex_other);
       // move assignment operator
       Vertex& operator=(Vertex&& _vertex_other);
+
+      glm::vec3 m_position
 
     private:
       glm::vec3 m_position;
