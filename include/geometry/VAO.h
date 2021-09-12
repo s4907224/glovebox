@@ -7,8 +7,11 @@
 #include <vector>
 #include <array>
 #include <string>
+#include <memory>
+#include <map>
 
 #include "helpers/gl_utils.h"
+#include "geometry/model.h"
 
 namespace gbox
 {
@@ -34,6 +37,9 @@ namespace gbox
 
       void load_from_obj(std::string _obj_file);
 
+      void register_mvp(const GLuint* _handle, std::shared_ptr<glm::mat4> _matrix);
+      bool unregister_mvp(const GLuint* _handle);
+
     private:
       static int m_instance_counter;
       int m_ID;
@@ -46,6 +52,9 @@ namespace gbox
       std::vector<int> m_vertex_indices;
 
       void create_VAO();
+
+      std::vector<std::shared_ptr<glm::mat4>> m_mvps;
+      std::vector<const GLuint*> m_mvp_handles;
   };// class VAO
 }// namespace gbox
 

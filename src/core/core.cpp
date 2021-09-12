@@ -179,10 +179,10 @@ void gbox::Core::register_keybind(int _scancode, int _keybind)
   m_handler->register_keybind(_scancode, _keybind);
 }
 
-const gbox::VAO& gbox::Core::add_VAO(std::string _model_file)
+std::shared_ptr<gbox::VAO> gbox::Core::add_VAO(std::string _model_file)
 {
   m_VAOs.push_back(std::make_shared<gbox::VAO>(_model_file));
-  return *m_VAOs.back();
+  return m_VAOs.back();
 }
 
 std::shared_ptr<gbox::Shader> gbox::Core::register_shader(std::string _shader_file)

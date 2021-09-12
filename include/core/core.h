@@ -44,7 +44,7 @@ namespace gbox
 
       void update();
 
-      const gbox::VAO& add_VAO(std::string _model_file);
+      std::shared_ptr<gbox::VAO> add_VAO(std::string _model_file);
 
       std::shared_ptr<gbox::Shader> register_shader(std::string _shader_file);
       std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::string _shader_program_name, std::vector<std::string> _shader_files);
