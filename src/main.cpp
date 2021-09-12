@@ -14,7 +14,7 @@ int main()
   core.register_keybind(gbox::GBSC_1, gbox::GBIND_wireframe_toggle);
   core.register_shader_program("basic", {"resources/shaders/basic/basic.frag", "resources/shaders/basic/default.vert"});
   core.use_shader_program("basic");
-  auto h = core.add_VAO("resources/models/ship.obj");
+  auto h = core.add_VAO("resources/models/teapot.obj");
 
   while(!core.quit_requested())
   {
