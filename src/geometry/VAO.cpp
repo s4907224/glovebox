@@ -6,6 +6,7 @@ gbox::VAO::VAO(std::string _file_path)
 {
   m_ID = m_instance_counter++;
 
+  load_from_obj(_file_path);
   create_VAO();
 
   #ifdef DEBUG_PRINTS
@@ -81,27 +82,111 @@ gbox::VAO& gbox::VAO::operator=(VAO&& _vao_other)
 void gbox::VAO::create_VAO()
 {
   glGenVertexArrays(1, &m_VAO_id);
-  glBindVertexArray(m_VAO_id);
+  glGenBuffers(1, &m_VBO_id);
+  glGenBuffers(1, &m_EBO_id);
 
-  float vert_positions[9] =
-  {
-    -0.5f, -0.5f, 0.f,
-      0.f,  0.5f, 0.f,
-     0.5f, -0.5f, 0.f,
+  glBindVertexArray(m_VAO_id);
+  glBindBuffer(GL_ARRAY_BUFFER, m_VBO_id);
+
+  glBufferData(GL_ARRAY_BUFFER, m_vertex_data.size() * sizeof(glm::vec3), &m_vertex_data[0].x, GL_STATIC_DRAW);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3) * 2, 0);
+  glEnableVertexAttribArray(0);
+
+
+  glBufferData(GL_ARRAY_BUFFER, m_vertex_data.size() * sizeof(glm::vec3), &m_vertex_data[0].x, GL_STATIC_DRAW);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, sizeof(glm::vec3) * 2, (void*) (sizeof(glm::vec3)));
+  glEnableVertexAttribArray(1);
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO_id);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int) * m_vertex_indices.size(), &m_vertex_indices[0], GL_STATIC_DRAW);
+
+  glBindVertexArray(m_VAO_id);
+}
+
+void gbox::VAO::load_from_obj(std::string _obj_file)
+{
+  std::ifstream fs_obj;
+  std::cout<<"load from obj\n";
+  fs_obj.open(_obj_file);
+
+  std::vector<glm::vec3> vp;
+  std::vector<glm::vec3> vn;
+  std::vector<int> idx;
+
+  std::array<std::string, 3> prefixes = {
+    "v ",
+    "vn",
+    "f "
   };
 
-  glGenBuffers(1, &m_VBO_id);
-  glBindBuffer(GL_ARRAY_BUFFER, m_VBO_id);
-  glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), vert_positions, GL_STATIC_DRAW);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
-  
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
+  if (fs_obj.is_open())
+  {
+    std::string line;
+    while (std::getline (fs_obj, line))
+    {
+      std::string prefix = line.substr(0, 2);
+      
+      std::string s_data;
+
+      bool p = std::find(std::begin(prefixes), std::end(prefixes), prefix) == std::end(prefixes);
+      if (p)
+      {
+        continue;
+      }
+
+      if (prefix == "v ")
+      {
+        // std::cout<<line.substr(2)<<'\n';
+        std::istringstream vertex_data(line.substr(2));
+        double x,y,z;
+        vertex_data>>x;vertex_data>>y;vertex_data>>z;
+        glm::vec3 vert {x,y,z};
+        vp.push_back(vert);
+      }
+      else if (prefix == "vn")
+      {
+        // std::cout<<line.substr(3)<<'\n';
+        std::istringstream vertex_data(line.substr(2));
+        double x,y,z;
+        vertex_data>>x;vertex_data>>y;vertex_data>>z;
+        glm::vec3 vert {x,y,z};
+
+        vn.push_back(vert);
+      }
+      else if (prefix  == "f ")
+      {
+        int v_1, v_2, v_3;
+        int n_1, n_2, n_3;
+        int uv_1, uv_2, uv_3;
+
+        const char* chh=line.c_str();
+        sscanf (chh, "f %i/%i/%i %i/%i/%i %i/%i/%i", &v_1, &n_1, &uv_1, &v_2, &n_2, &uv_2, &v_3, &n_3, &uv_3);
+
+        idx.push_back(--v_1);
+        idx.push_back(--v_2);
+        idx.push_back(--v_3);
+      }
+    }
+    fs_obj.close();
+  }
+
+  m_vertex_data.clear();
+  for (size_t i = 0; i < vp.size(); i++)
+  {
+    m_vertex_data.push_back(vp[i]);
+    m_vertex_data.push_back(vn[i]);
+  }
+
+  m_vertex_indices.clear();
+  for (size_t i = 0; i < idx.size(); i++)
+  {
+    m_vertex_indices.push_back(idx[i]);
+  }
 }
 
 void gbox::VAO::draw()
 {
   glBindVertexArray(m_VAO_id);
-  glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(3));
+  glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
+  // glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(3));
 }

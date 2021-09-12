@@ -60,6 +60,8 @@ namespace gbox
 
       void init_triangle_VAO();
       void draw();
+      void set_polygon_mode(GLenum face, GLenum mode);
+      bool m_wireframe = false;
 
       void init_GL();
 

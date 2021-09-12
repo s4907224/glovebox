@@ -11,6 +11,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 CONFIG += sdk_no_version_check
 
+INCLUDEPATH += include
+INCLUDEPATH += /usr/local/Cellar/glm/0.9.9.8/include
+INCLUDEPATH += /usr/local/include/
+
 SOURCES += \
         src/*.cpp\
         src/core/*.cpp\
@@ -28,10 +32,6 @@ HEADERS += \
         include/helpers/*.h\
         include/shader/*.h\
         include/user_io/*.h
-
-INCLUDEPATH += include
-INCLUDEPATH += /usr/local/Cellar/glm/0.9.9.8/include
-INCLUDEPATH += /usr/local/include/
 
 QMAKE_CXX = g++
 

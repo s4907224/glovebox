@@ -11,7 +11,8 @@ namespace gbox
     GBIND_exit,
     GBIND_fullscreen_toggle,
     GBIND_fullscreen_enter,
-    GBIND_fullscreen_exit
+    GBIND_fullscreen_exit,
+    GBIND_wireframe_toggle
   };
 }// namespace gbox
 

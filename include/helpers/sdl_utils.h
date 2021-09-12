@@ -1,5 +1,5 @@
-#ifndef GBOX_SDLUTILS_H
-#define GBOX_SDLUTILS_H
+#ifndef GBOX_SDL_UTILS_H
+#define GBOX_SDL_UTILS_H
 
 #include <iostream>
 
@@ -8,4 +8,4 @@ namespace gbox
   int sdl_scancode_to_gbox(int _scancode);
 }// namespace gbox
 
-#endif // GBOXSDLUTILSH
+#endif // GBOX_SDL_UTILS_H

@@ -1,5 +1,5 @@
-#ifndef GBOX_GenericHandler_H
-#define GBOX_GenericHandler_H
+#ifndef GBOX_GENERIC_HANDLER_H
+#define GBOX_GENERIC_HANDLER_H
 
 #include <iostream>
 #include <memory>

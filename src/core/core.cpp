@@ -104,16 +104,37 @@ void gbox::Core::update()
       {
         case (GBIND_fullscreen_toggle):
         {
-          if (keystate->just_pressed)
+          if (not keystate->just_pressed)
           {
-            m_handler->toggle_fullscreen();
+            break;
           }
+          m_handler->toggle_fullscreen();
           break;
         }
         case (GBIND_exit):
         {
           m_handler->request_quit();
           m_quit = true;
+          break;
+        }
+
+        case (GBIND_wireframe_toggle):
+        {
+          if (not keystate->just_pressed)
+          {
+            break;
+          }
+
+          m_wireframe = not m_wireframe;
+
+          if (m_wireframe)
+          {
+            set_polygon_mode(GL_FRONT_AND_BACK, GL_LINE);
+          }
+          else
+          {
+            set_polygon_mode(GL_FRONT_AND_BACK, GL_FILL);
+          }
           break;
         }
       }
@@ -141,6 +162,11 @@ void gbox::Core::draw()
   {
     m_vao->draw();
   }
+}
+
+void gbox::Core::set_polygon_mode(GLenum face, GLenum mode)
+{
+  glPolygonMode(face, mode);
 }
 
 bool gbox::Core::quit_requested() const

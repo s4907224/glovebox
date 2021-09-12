@@ -1,5 +1,5 @@
-#ifndef GBOX_GLUTILS_H
-#define GBOX_GLUTILS_H
+#ifndef GBOX_GL_UTILS_H
+#define GBOX_GL_UTILS_H
 
 #include <string>
 #include <fstream>
@@ -12,4 +12,4 @@ namespace gbox
 {
 }// namespace gbox
 
-#endif // GBOX_GLUTILS_H
+#endif // GBOX_GL_UTILS_H

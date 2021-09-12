@@ -2,11 +2,13 @@
 #define GBOX_VAO_H
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
+#include <array>
 #include <string>
 
 #include "helpers/gl_utils.h"
-#include "geometry/vertex.h"
 
 namespace gbox
 {
@@ -30,12 +32,18 @@ namespace gbox
 
       void draw();
 
+      void load_from_obj(std::string _obj_file);
+
     private:
       static int m_instance_counter;
       int m_ID;
 
       GLuint m_VAO_id;
       GLuint m_VBO_id;
+      GLuint m_EBO_id;
+
+      std::vector<glm::vec3> m_vertex_data;
+      std::vector<int> m_vertex_indices;
 
       void create_VAO();
   };// class VAO
