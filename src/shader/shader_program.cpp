@@ -2,47 +2,11 @@
 
 int gbox::ShaderProgram::m_instance_counter = 0;
 
-gbox::ShaderProgram::ShaderProgram(std::string _vert, std::string _frag)
+gbox::ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<gbox::Shader>> _shaders) : m_shaders(_shaders)
 {
   m_ID = m_instance_counter++;
 
-  std::vector<std::shared_ptr<gbox::Shader>> shaders = compile_shaders({_vert, _frag});
-  link(shaders);
-
-  #ifdef DEBUG_PRINTS
-  std::cout<<"Ctor called for ShaderProgram with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
-  #endif
-}
-
-gbox::ShaderProgram::ShaderProgram(std::vector<std::pair<std::string, GLenum>> _shader_data)
-{
-  m_ID = m_instance_counter++;
-
-  std::vector<std::shared_ptr<gbox::Shader>> shaders = compile_shaders(_shader_data);
-  link(shaders);
-
-  #ifdef DEBUG_PRINTS
-  std::cout<<"Ctor called for ShaderProgram with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
-  #endif
-}
-
-gbox::ShaderProgram::ShaderProgram(std::vector<std::string> _shader_paths)
-{
-  m_ID = m_instance_counter++;
-
-  std::vector<std::shared_ptr<gbox::Shader>> shaders = compile_shaders(_shader_paths);
-  link(shaders);
-
-  #ifdef DEBUG_PRINTS
-  std::cout<<"Ctor called for ShaderProgram with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
-  #endif
-}
-
-gbox::ShaderProgram::ShaderProgram(std::vector<std::shared_ptr<gbox::Shader>>  _shaders)
-{
-  m_ID = m_instance_counter++;
-
-  link(_shaders);
+  link();
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Ctor called for ShaderProgram with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
@@ -61,7 +25,7 @@ gbox::ShaderProgram::ShaderProgram(const ShaderProgram& _shaderprogram_other)
   m_ID = m_instance_counter++;
 
   m_shader_program_id = _shaderprogram_other.m_shader_program_id;
-  m_shader_file_paths = _shaderprogram_other.m_shader_file_paths;
+  m_shaders = _shaderprogram_other.m_shaders;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy ctor called for ShaderProgram with ID "<<m_ID<<" and ShaderProgram with ID "<<_shaderprogram_other.m_ID<<'\n';
@@ -73,7 +37,7 @@ gbox::ShaderProgram& gbox::ShaderProgram::operator=(const ShaderProgram& _shader
   m_ID = _shaderprogram_other.m_ID;
 
   m_shader_program_id = _shaderprogram_other.m_shader_program_id;
-  m_shader_file_paths = _shaderprogram_other.m_shader_file_paths;
+  m_shaders = _shaderprogram_other.m_shaders;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Copy assignment called for ShaderProgram with ID "<<m_ID<<" and ShaderProgram with ID "<<_shaderprogram_other.m_ID<<'\n';
@@ -87,7 +51,7 @@ gbox::ShaderProgram::ShaderProgram(ShaderProgram&& _shaderprogram_other)
   m_ID = _shaderprogram_other.m_ID;
 
   m_shader_program_id = _shaderprogram_other.m_shader_program_id;
-  m_shader_file_paths = _shaderprogram_other.m_shader_file_paths;
+  m_shaders = _shaderprogram_other.m_shaders;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move ctor called for ShaderProgram with ID "<<m_ID<<" and ShaderProgram with ID "<<_shaderprogram_other.m_ID<<'\n';
@@ -101,7 +65,7 @@ gbox::ShaderProgram& gbox::ShaderProgram::operator=(ShaderProgram&& _shaderprogr
   m_ID = _shaderprogram_other.m_ID;
 
   m_shader_program_id = _shaderprogram_other.m_shader_program_id;
-  m_shader_file_paths = _shaderprogram_other.m_shader_file_paths;
+  m_shaders = _shaderprogram_other.m_shaders;
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Move assignment called for ShaderProgram with ID "<<m_ID<<" and ShaderProgram with ID "<<_shaderprogram_other.m_ID<<'\n';
@@ -116,38 +80,12 @@ const GLuint& gbox::ShaderProgram::get_program_ID() const
   return m_shader_program_id;
 }
 
-std::vector<std::shared_ptr<gbox::Shader>> gbox::ShaderProgram::compile_shaders(std::vector<std::string> _shader_paths)
-{
-  std::vector<std::shared_ptr<gbox::Shader>>shaders;
-  for (auto shader_path : _shader_paths)
-  {
-    shaders.push_back(std::make_shared<gbox::Shader>(shader_path));
-    m_shader_file_paths.push_back(shader_path);
-    shaders.back()->compile();
-  }
-
-  return shaders;
-}
-
-std::vector<std::shared_ptr<gbox::Shader>> gbox::ShaderProgram::compile_shaders(std::vector<std::pair<std::string, GLenum>> _shader_data)
-{
-  std::vector<std::shared_ptr<gbox::Shader>> shaders;
-  for (auto shader_data : _shader_data)
-  {
-    shaders.push_back(std::make_shared<gbox::Shader>(shader_data.first, shader_data.second));
-    m_shader_file_paths.push_back(shader_data.first);
-    shaders.back()->compile();
-  }
-
-  return shaders;
-}
-
-void gbox::ShaderProgram::link(std::vector<std::shared_ptr<gbox::Shader>> _shaders)
+void gbox::ShaderProgram::link()
 {
   unsigned int shader_program;
   shader_program = glCreateProgram();
 
-  for (auto shader : _shaders)
+  for (auto shader : m_shaders)
   {
     glAttachShader(shader_program, shader->get_shader_ID());
   }

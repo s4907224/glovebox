@@ -19,12 +19,6 @@ namespace gbox
       // dtor
       ~ShaderProgram();
       // ctor
-      ShaderProgram(std::string _vert, std::string _frag);
-
-      ShaderProgram(std::vector<std::string> _shader_paths);
-
-      ShaderProgram(std::vector<std::pair<std::string, GLenum> >_shader_data);
-
       ShaderProgram(std::vector<std::shared_ptr<gbox::Shader>> _shaders);
       // copy ctor
       ShaderProgram(const ShaderProgram& _shaderprogram_other);
@@ -47,11 +41,9 @@ namespace gbox
 
       GLuint m_shader_program_id;
 
-      std::vector<std::string> m_shader_file_paths;
+      std::vector<std::shared_ptr<gbox::Shader>> m_shaders;
 
-      std::vector<std::shared_ptr<gbox::Shader>> compile_shaders(std::vector<std::string> _shader_paths);
-      std::vector<std::shared_ptr<gbox::Shader>> compile_shaders(std::vector<std::pair<std::string, GLenum>> _shader_data);
-      void link(std::vector<std::shared_ptr<gbox::Shader>>_shaders);
+      void link();
   };// class ShaderProgram
 }// namespace gbox
 

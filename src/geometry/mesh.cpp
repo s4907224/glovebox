@@ -70,9 +70,7 @@ gbox::Mesh& gbox::Mesh::operator=(Mesh&& _mesh_other)
 
 void gbox::Mesh::set_model_matrix(glm::mat4 _model_matrix)
 {
-  std::cout<<"about to set model matrix\n";
   *m_model_matrix = _model_matrix;
-  std::cout<<"set model matrix\n";
 
   update_mvp();
 }

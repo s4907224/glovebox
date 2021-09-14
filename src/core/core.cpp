@@ -160,7 +160,6 @@ void gbox::Core::draw()
 
   for (auto &m_vao : m_VAOs)
   {
-    std::cout<<"about to draw\n";
     m_vao->draw();
   }
 }
@@ -188,34 +187,37 @@ std::shared_ptr<gbox::VAO> gbox::Core::add_VAO(std::string _model_file)
 
 std::shared_ptr<gbox::Shader> gbox::Core::register_shader(std::string _shader_file)
 {
-  std::shared_ptr<gbox::Shader> shader = std::make_shared<gbox::Shader>(_shader_file);
-  if(m_shaders.insert(std::make_pair(_shader_file, shader)).second == true)
+  if (m_shaders.find(_shader_file) == m_shaders.end())
   {
+    std::shared_ptr<gbox::Shader> shader = std::make_shared<gbox::Shader>(_shader_file);
     shader->compile();
+    m_shaders.insert(std::make_pair(_shader_file, shader));
   }
-  return m_shaders[_shader_file];
+  
+  return m_shaders[_shader_file]; 
 }
 
-std::shared_ptr<gbox::ShaderProgram> gbox::Core::register_shader_program(std::string _shader_program_name, std::vector<std::string> _shader_files)
+std::shared_ptr<gbox::ShaderProgram> gbox::Core::register_shader_program(std::vector<std::string> _shader_files)
 {
-  std::vector<std::shared_ptr<gbox::Shader>> shaders;
+  std::size_t combined_hash = 0;
+
   for (auto shader_file : _shader_files)
   {
-    shaders.push_back(register_shader(shader_file));
+    combined_hash = std::hash<std::size_t>{}(combined_hash + std::hash<std::string>{}(shader_file));
   }
 
-  if (m_shader_programs.find(_shader_program_name) == m_shader_programs.end())
+  if (m_shader_programs.find(combined_hash) == m_shader_programs.end())
   {
-    std::shared_ptr<gbox::ShaderProgram> shader_program = std::make_shared<gbox::ShaderProgram>(shaders);
-    m_shader_programs[_shader_program_name] = shader_program;
-  }
-  return m_shader_programs[_shader_program_name];
-}
+    std::vector<std::shared_ptr<gbox::Shader>> shaders;
 
-void gbox::Core::use_shader_program(std::string _shader_program_name)
-{
-  if (m_shader_programs.find(_shader_program_name) != m_shader_programs.end())
-  {
-    m_shader_programs[_shader_program_name]->use();
+    for (auto shader_file : _shader_files)
+    {
+      shaders.push_back(register_shader(shader_file));
+    }
+
+    std::shared_ptr<gbox::ShaderProgram> shader_program =  std::make_shared<gbox::ShaderProgram>(shaders);
+    m_shader_programs.insert(std::make_pair(combined_hash, shader_program));
   }
+  
+  return m_shader_programs[combined_hash];
 }

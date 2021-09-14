@@ -190,9 +190,7 @@ void gbox::VAO::draw()
 
   for (auto &matrix : m_mvps)
   {
-    std::cout<<"about to draw vao\n";
     glUniformMatrix4fv(0, 1, false, glm::value_ptr(*matrix));
-    std::cout<<"sent uniform\n";
     glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
   }
 }

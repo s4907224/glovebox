@@ -7,6 +7,7 @@
 #include <memory>
 #include <chrono>
 #include <map>
+#include <functional>
 
 #include "helpers/gl_utils.h"
 
@@ -49,9 +50,10 @@ namespace gbox
       std::shared_ptr<gbox::VAO> add_VAO(std::string _model_file);
 
       std::shared_ptr<gbox::Shader> register_shader(std::string _shader_file);
-      std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::string _shader_program_name, std::vector<std::string> _shader_files);
+      std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::vector<std::string> _shader_files);
+      std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::vector<std::shared_ptr<gbox::Shader>> _shaders);
 
-      void use_shader_program(std::string _shader_program_name);
+      // void use_shader_program(std::string _shader_program_name);
 
     private:
       static int m_instance_counter;
@@ -70,7 +72,7 @@ namespace gbox
       std::vector<std::shared_ptr<gbox::VAO>> m_VAOs;
 
       std::map<std::string, std::shared_ptr<gbox::Shader>> m_shaders;
-      std::map<std::string, std::shared_ptr<gbox::ShaderProgram>> m_shader_programs;
+      std::map<std::size_t, std::shared_ptr<gbox::ShaderProgram>> m_shader_programs;
 
       bool m_quit;
 
