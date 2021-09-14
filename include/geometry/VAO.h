@@ -1,6 +1,8 @@
 #ifndef GBOX_VAO_H
 #define GBOX_VAO_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,10 +13,12 @@
 #include <map>
 
 #include "helpers/gl_utils.h"
-#include "geometry/model.h"
+#include "geometry/mesh.h"
 
 namespace gbox
 {
+  class Mesh;
+
   class VAO
   {
     public:
@@ -37,8 +41,8 @@ namespace gbox
 
       void load_from_obj(std::string _obj_file);
 
-      void register_mvp(const GLuint* _handle, std::shared_ptr<glm::mat4> _matrix);
-      bool unregister_mvp(const GLuint* _handle);
+      void register_mvp(std::shared_ptr<glm::mat4> _matrix);
+      bool unregister_mvp(std::shared_ptr<glm::mat4> _matrix);
 
     private:
       static int m_instance_counter;
@@ -54,7 +58,6 @@ namespace gbox
       void create_VAO();
 
       std::vector<std::shared_ptr<glm::mat4>> m_mvps;
-      std::vector<const GLuint*> m_mvp_handles;
   };// class VAO
 }// namespace gbox
 

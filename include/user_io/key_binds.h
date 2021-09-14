@@ -1,6 +1,8 @@
 #ifndef GBOX_KEYBINDHANDLER_H
 #define GBOX_KEYBINDHANDLER_H
 
+#define DEBUG_PRINTS
+
 namespace gbox
 {
   enum keybinds{

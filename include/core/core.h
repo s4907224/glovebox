@@ -1,6 +1,8 @@
 #ifndef GBOX_CORE_H
 #define GBOX_CORE_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include <memory>
 #include <chrono>

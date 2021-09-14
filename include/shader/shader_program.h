@@ -1,6 +1,8 @@
 #ifndef GBOX_SHADERPROGRAM_H
 #define GBOX_SHADERPROGRAM_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include <string>
 #include <utility>

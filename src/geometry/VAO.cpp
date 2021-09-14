@@ -18,6 +18,7 @@ gbox::VAO::~VAO()
 {
   glDeleteVertexArrays(1, &m_VAO_id);
   glDeleteBuffers(1, &m_VBO_id);
+  glDeleteBuffers(1, &m_EBO_id);
 
   #ifdef DEBUG_PRINTS  
   std::cout<<"Dtor called for VAO with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
@@ -106,7 +107,6 @@ void gbox::VAO::create_VAO()
 void gbox::VAO::load_from_obj(std::string _obj_file)
 {
   std::ifstream fs_obj;
-  std::cout<<"load from obj\n";
   fs_obj.open(_obj_file);
 
   std::vector<glm::vec3> vp;
@@ -190,28 +190,26 @@ void gbox::VAO::draw()
 
   for (auto &matrix : m_mvps)
   {
+    std::cout<<"about to draw vao\n";
     glUniformMatrix4fv(0, 1, false, glm::value_ptr(*matrix));
+    std::cout<<"sent uniform\n";
     glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
   }
 }
 
-void gbox::VAO::register_mvp(const GLuint* _handle, std::shared_ptr<glm::mat4> _matrix)
+void gbox::VAO::register_mvp(std::shared_ptr<glm::mat4> _matrix)
 {
   m_mvps.push_back(_matrix);
-  m_mvp_handles.push_back(_handle);
 }
 
-bool gbox::VAO::unregister_mvp(const GLuint* _handle)
+bool gbox::VAO::unregister_mvp(std::shared_ptr<glm::mat4> _matrix)
 {
-  auto iter = find(m_mvp_handles.begin(), m_mvp_handles.end(), _handle);
-  if (iter == m_mvp_handles.end())
+  auto iter = find(m_mvps.begin(), m_mvps.end(), _matrix);
+  if (iter == m_mvps.end())
   {
     return false;
   }
 
-  int index = iter - m_mvp_handles.begin();
-  m_mvp_handles.erase(iter);
-  m_mvps.erase(m_mvps.begin() + index);
-
+  m_mvps.erase(iter);
   return true;
 }

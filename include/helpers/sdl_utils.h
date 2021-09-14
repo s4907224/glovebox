@@ -1,6 +1,8 @@
 #ifndef GBOX_SDL_UTILS_H
 #define GBOX_SDL_UTILS_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 
 namespace gbox

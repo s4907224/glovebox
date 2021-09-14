@@ -1,6 +1,8 @@
 #ifndef GBOX_GENERIC_HANDLER_H
 #define GBOX_GENERIC_HANDLER_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include <memory>
 #include <array>

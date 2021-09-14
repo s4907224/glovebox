@@ -1,6 +1,8 @@
 #ifndef GBOX_KEYHANDLER_H
 #define GBOX_KEYHANDLER_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include <memory>
 #include <array>

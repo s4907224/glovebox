@@ -1,6 +1,8 @@
 #ifndef GBOX_KEYSTATE_H
 #define GBOX_KEYSTATE_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 
 namespace gbox

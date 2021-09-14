@@ -1,6 +1,8 @@
 #ifndef GBOX_SDLgbox_H
 #define GBOX_SDLgbox_H
 
+#define DEBUG_PRINTS
+
 #include <iostream>
 #include "helpers/gl_utils.h"
 #include <SDL.h>

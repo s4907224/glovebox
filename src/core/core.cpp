@@ -160,6 +160,7 @@ void gbox::Core::draw()
 
   for (auto &m_vao : m_VAOs)
   {
+    std::cout<<"about to draw\n";
     m_vao->draw();
   }
 }
