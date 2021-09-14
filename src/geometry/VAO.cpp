@@ -188,26 +188,33 @@ void gbox::VAO::draw()
 {
   glBindVertexArray(m_VAO_id);
 
-  for (auto &matrix : m_mvps)
+  for (auto shader_mesh_data : m_meshes)
   {
-    glUniformMatrix4fv(0, 1, false, glm::value_ptr(*matrix));
-    glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
+    shader_mesh_data.first->use();
+
+    for (auto mesh : shader_mesh_data.second)
+    {
+      glUniformMatrix4fv(0, 1, false, glm::value_ptr(mesh->get_mvp()));
+      glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
+    }
   }
 }
 
-void gbox::VAO::register_mvp(std::shared_ptr<glm::mat4> _matrix)
+void gbox::VAO::register_mesh(std::shared_ptr<gbox::Mesh> _mesh)
 {
-  m_mvps.push_back(_matrix);
+  auto shader_program = _mesh->get_shader_program();
+  m_meshes[shader_program].push_back(_mesh);
 }
 
-bool gbox::VAO::unregister_mvp(std::shared_ptr<glm::mat4> _matrix)
+bool gbox::VAO::unregister_mesh(std::shared_ptr<gbox::Mesh> _mesh)
 {
-  auto iter = find(m_mvps.begin(), m_mvps.end(), _matrix);
-  if (iter == m_mvps.end())
+  auto shader_program = _mesh->get_shader_program();
+  auto iter = find(m_meshes[shader_program].begin(), m_meshes[shader_program].end(), _mesh);
+  if (iter == m_meshes[shader_program].end())
   {
     return false;
   }
 
-  m_mvps.erase(iter);
+  m_meshes[shader_program].erase(iter);
   return true;
 }

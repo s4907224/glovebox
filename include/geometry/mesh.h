@@ -3,11 +3,10 @@
 
 #include <iostream>
 #include "helpers/gl_utils.h"
-#include "geometry/VAO.h"
+#include "shader/shader_program.h"
 
 namespace gbox
 {
-  class VAO;
 
   class Mesh
   {
@@ -15,7 +14,7 @@ namespace gbox
       // dtor
       ~Mesh();
       // ctor
-      Mesh(std::shared_ptr<gbox::VAO> _vao);
+      Mesh();
       // copy ctor
       Mesh(const Mesh& _mesh_other);
       // copy assignment operator
@@ -31,7 +30,14 @@ namespace gbox
       void set_view_matrix(glm::mat4 _view_matrix);
       void set_projection_matrix(glm::mat4 _projection_matrix);
 
+      std::shared_ptr<glm::mat4> get_model_matrix() const;
+      glm::mat4 get_mvp() const;
+
       void translate(glm::vec3 _translation);
+      void set_tranlation(glm::vec3 _translation);
+
+      void set_shader_program(std::shared_ptr<gbox::ShaderProgram> _shader_program);
+      std::shared_ptr<gbox::ShaderProgram> get_shader_program() const;
 
     private:
       static int m_instance_counter;
@@ -41,13 +47,13 @@ namespace gbox
       std::shared_ptr<glm::mat4> m_view_matrix;
       std::shared_ptr<glm::mat4> m_projection_matrix;
 
-      std::shared_ptr<glm::mat4> m_mvp;
+      glm::mat4 m_mvp;
+
+      std::shared_ptr<gbox::ShaderProgram> m_shader_program;
 
       void update_mvp();
 
       void init_matrices();
-
-      std::shared_ptr<gbox::VAO> m_vao;
   };// class Mesh
 }// namespace gbox
 

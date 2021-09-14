@@ -41,8 +41,10 @@ namespace gbox
 
       void load_from_obj(std::string _obj_file);
 
-      void register_mvp(std::shared_ptr<glm::mat4> _matrix);
-      bool unregister_mvp(std::shared_ptr<glm::mat4> _matrix);
+      void register_mesh(std::shared_ptr<gbox::Mesh> _mesh);
+      bool unregister_mesh(std::shared_ptr<gbox::Mesh> _mesh);
+
+      void switch_mesh_shader_program(std::shared_ptr<gbox::Mesh> _mesh);
 
     private:
       static int m_instance_counter;
@@ -57,7 +59,7 @@ namespace gbox
 
       void create_VAO();
 
-      std::vector<std::shared_ptr<glm::mat4>> m_mvps;
+      std::map<std::shared_ptr<gbox::ShaderProgram>, std::vector<std::shared_ptr<gbox::Mesh>>> m_meshes;
   };// class VAO
 }// namespace gbox
 

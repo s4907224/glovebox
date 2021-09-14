@@ -2,13 +2,10 @@
 
 int gbox::Mesh::m_instance_counter = 0;
 
-gbox::Mesh::Mesh(std::shared_ptr<gbox::VAO> _vao)
+gbox::Mesh::Mesh()
 {
   m_ID = m_instance_counter++;
   init_matrices();
-
-  m_vao = _vao;
-  m_vao->register_mvp(m_mvp);
 
   #ifdef DEBUG_PRINTS
   std::cout<<"Ctor called for Mesh with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
@@ -17,8 +14,6 @@ gbox::Mesh::Mesh(std::shared_ptr<gbox::VAO> _vao)
 
 gbox::Mesh::~Mesh()
 {
-  m_vao->unregister_mvp(m_mvp);
-
   #ifdef DEBUG_PRINTS  
   std::cout<<"Dtor called for Mesh with ID "<<m_ID<<" @"<<std::hex<<this<<std::dec<<'\n';
   #endif
@@ -98,7 +93,7 @@ void gbox::Mesh::translate(glm::vec3 _translation)
 
 void gbox::Mesh::update_mvp()
 {
-  *m_mvp = (*m_projection_matrix) * (*m_view_matrix) * (*m_model_matrix);
+  m_mvp = (*m_projection_matrix) * (*m_view_matrix) * (*m_model_matrix);
 }
 
 void gbox::Mesh::init_matrices()
@@ -106,6 +101,24 @@ void gbox::Mesh::init_matrices()
   m_model_matrix = std::make_shared<glm::mat4>(1.f);
   m_view_matrix = std::make_shared<glm::mat4>(1.f);
   m_projection_matrix = std::make_shared<glm::mat4>(1.f);
+}
 
-  m_mvp = std::make_shared<glm::mat4>(1.f);
+std::shared_ptr<gbox::ShaderProgram> gbox::Mesh::get_shader_program() const
+{
+  return m_shader_program;
+}
+
+void gbox::Mesh::set_shader_program(std::shared_ptr<gbox::ShaderProgram> _shader_program)
+{
+  m_shader_program = _shader_program;
+}
+
+glm::mat4 gbox::Mesh::get_mvp() const
+{
+  return m_mvp;
+}
+
+std::shared_ptr<glm::mat4> gbox::Mesh::get_model_matrix() const
+{
+  return m_model_matrix;
 }

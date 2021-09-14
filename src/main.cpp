@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cmath>
 #include <functional>
 
 #include "core/core.h"
@@ -7,24 +7,9 @@
 #include "user_io/key_binds.h"
 #include "geometry/mesh.h"
 
+
 int main()
 {
-
-  std::size_t h1 = std::hash<std::string>{}(std::string("hello"));
-  std::size_t h2 = std::hash<std::string>{}(std::string("there"));
-  std::size_t h3 = std::hash<std::size_t>{}(h1 + h2);
-  std::size_t h4 = std::hash<std::size_t>{}(h2 + h1);
-
-  if(h3==h4)
-  {
-    std::cout<<"same!\n";
-  }
-  else
-  {
-    std::cout<<"different!\n";
-  }
-  
-
   gbox::Core core;
   core.register_SDL_handler();
 
@@ -48,28 +33,30 @@ int main()
   glm::mat4 view = glm::lookAt(glm::vec3(.5f, 1.f, 5.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
   glm::mat4 proj = glm::perspective(glm::radians(90.f), 4.0f / 3.0f, 0.1f, 100.0f);
 
-  gbox::Mesh model(h);
-  model.set_model_matrix(glm::mat4(1.f));
-  model.set_view_matrix(view);
-  model.set_projection_matrix(proj);
+  std::shared_ptr<gbox::Mesh> mesh = std::make_shared<gbox::Mesh>();
+  mesh->set_model_matrix(glm::mat4(1.f));
+  mesh->set_view_matrix(view);
+  mesh->set_projection_matrix(proj);
+  mesh->set_shader_program(shader_program);
+
+  std::shared_ptr<gbox::Mesh> mesh2 = std::make_shared<gbox::Mesh>();
+  mesh2->set_model_matrix(glm::mat4(1.f));
+  mesh2->set_view_matrix(view);
+  mesh2->set_projection_matrix(proj);
+  mesh2->set_shader_program(shader_program3);
+
+
+  h->register_mesh(mesh);
+  h->register_mesh(mesh2);
 
   int flip = 0;
   int frames = 0;
 
   while(!core.quit_requested())
   {
-    if (frames++ % 60 == 0)
-    {
-      flip++;
-
-      if (flip==0) {shader_program->use();}
-      if (flip==1) {shader_program2->use();}
-      if (flip==2) {shader_program3->use();}
-
-      flip = flip % 3;
-    }
     core.update();
-    model.translate(glm::vec3(0.01f, 0.f, 0.f));
+    mesh->translate(glm::vec3(0.01f, 0.f, 0.f));
+    mesh2->set_model_matrix(glm::translate(glm::mat4(1.f), glm::vec3(-4.f, sin(float(frames++) * 0.5f) * 0.1f, 0.f)));
   }
 
 return EXIT_SUCCESS;
