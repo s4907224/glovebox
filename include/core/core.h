@@ -17,6 +17,7 @@
 #include "user_io/key_binds.h"
 #include "geometry/VAO.h"
 #include "shader/shader_program.h"
+#include "camera/camera.h"
 
 namespace gbox
 {
@@ -53,6 +54,8 @@ namespace gbox
       std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::vector<std::string> _shader_files);
       std::shared_ptr<gbox::ShaderProgram> register_shader_program(std::vector<std::shared_ptr<gbox::Shader>> _shaders);
 
+      void register_camera(std::shared_ptr<gbox::Camera> _camera);
+
       // void use_shader_program(std::string _shader_program_name);
 
     private:
@@ -61,6 +64,7 @@ namespace gbox
 
       std::shared_ptr<gbox::GenericHandler> m_handler;
       std::shared_ptr<gbox::KeyHandler> m_key_handler;
+      void process_keys();
 
       void init_triangle_VAO();
       void draw();
@@ -70,6 +74,9 @@ namespace gbox
       void init_GL();
 
       std::vector<std::shared_ptr<gbox::VAO>> m_VAOs;
+
+      std::vector<std::shared_ptr<gbox::Camera>> m_cameras;
+      void update_cameras();
 
       std::map<std::string, std::shared_ptr<gbox::Shader>> m_shaders;
       std::map<std::size_t, std::shared_ptr<gbox::ShaderProgram>> m_shader_programs;

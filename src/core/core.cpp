@@ -96,6 +96,15 @@ void gbox::Core::update()
 
   m_handler->update();
 
+  process_keys();
+
+  update_cameras();
+
+  draw();
+}
+
+void gbox::Core::process_keys()
+{
   for(std::shared_ptr<gbox::KeyState> keystate: m_handler->get_key_handler().get_active_keys())
   {
     for(int keybind : m_handler->get_key_handler().get_keybinds(keystate->scancode))
@@ -137,10 +146,45 @@ void gbox::Core::update()
           }
           break;
         }
+
+        case (GBIND_forward):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->view_space_translate({0.f, 0.f, 0.1f});
+          }
+          break;
+        }
+
+        case (GBIND_backward):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->view_space_translate({0.f, 0.f, -0.1f});
+          }
+          break;
+        }
+
+        case (GBIND_left):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->view_space_translate({-0.1f, 0.f, 0.f});
+          }
+          break;
+        }
+
+        case (GBIND_right):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->view_space_translate({0.1f, 0.f, 0.f});
+          }
+          break;
+        }
       }
     }
   }
-  draw();
 }
 
 void gbox::Core::init_GL()
@@ -220,4 +264,17 @@ std::shared_ptr<gbox::ShaderProgram> gbox::Core::register_shader_program(std::ve
   }
   
   return m_shader_programs[combined_hash];
+}
+
+void gbox::Core::register_camera(std::shared_ptr<gbox::Camera> _camera)
+{
+  m_cameras.push_back(_camera);
+}
+
+void gbox::Core::update_cameras()
+{
+  for (auto camera : m_cameras)
+  {
+    camera->update_view_projection_matrix();
+  }
 }

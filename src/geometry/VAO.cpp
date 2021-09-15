@@ -194,7 +194,8 @@ void gbox::VAO::draw()
 
     for (auto mesh : shader_mesh_data.second)
     {
-      glUniformMatrix4fv(0, 1, false, glm::value_ptr(mesh->get_mvp()));
+      auto mvp = mesh->update_mvp();
+      glUniformMatrix4fv(0, 1, false, glm::value_ptr(*mvp));
       glDrawElements(GL_TRIANGLES, m_vertex_indices.size(), GL_UNSIGNED_INT, 0);
     }
   }

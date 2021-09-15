@@ -6,6 +6,7 @@
 #include "user_io/key_handler.h"
 #include "user_io/key_binds.h"
 #include "geometry/mesh.h"
+#include "camera/perspective_camera.h"
 
 
 int main()
@@ -30,21 +31,17 @@ int main()
   
   auto h = core.add_VAO("resources/models/bust.obj");
 
-  glm::mat4 view = glm::lookAt(glm::vec3(.5f, 1.f, 5.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
-  glm::mat4 proj = glm::perspective(glm::radians(90.f), 4.0f / 3.0f, 0.1f, 100.0f);
+  std::shared_ptr<gbox::PerspectiveCamera> camera = std::make_shared<gbox::PerspectiveCamera>();
+  core.register_camera(camera);
 
   std::shared_ptr<gbox::Mesh> mesh = std::make_shared<gbox::Mesh>();
-  mesh->set_model_matrix(glm::mat4(1.f));
-  mesh->set_view_matrix(view);
-  mesh->set_projection_matrix(proj);
+  mesh->set_camera(camera);
   mesh->set_shader_program(shader_program);
 
   std::shared_ptr<gbox::Mesh> mesh2 = std::make_shared<gbox::Mesh>();
-  mesh2->set_model_matrix(glm::mat4(1.f));
-  mesh2->set_view_matrix(view);
-  mesh2->set_projection_matrix(proj);
+  mesh2->set_camera(camera);
   mesh2->set_shader_program(shader_program3);
-
+  mesh2->set_model_matrix(glm::translate(glm::mat4(1.f), glm::vec3(-4.f, 0.f, 0.f)));
 
   h->register_mesh(mesh);
   h->register_mesh(mesh2);
@@ -55,8 +52,6 @@ int main()
   while(!core.quit_requested())
   {
     core.update();
-    mesh->translate(glm::vec3(0.01f, 0.f, 0.f));
-    mesh2->set_model_matrix(glm::translate(glm::mat4(1.f), glm::vec3(-4.f, sin(float(frames++) * 0.5f) * 0.1f, 0.f)));
   }
 
 return EXIT_SUCCESS;

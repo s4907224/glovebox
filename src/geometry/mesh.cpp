@@ -70,16 +70,9 @@ void gbox::Mesh::set_model_matrix(glm::mat4 _model_matrix)
   update_mvp();
 }
 
-void gbox::Mesh::set_view_matrix(glm::mat4 _view_matrix)
+void gbox::Mesh::set_camera(std::shared_ptr<gbox::Camera> _camera)
 {
-  *m_view_matrix = _view_matrix;
-
-  update_mvp();
-}
-
-void gbox::Mesh::set_projection_matrix(glm::mat4 _projection_matrix)
-{
-  *m_projection_matrix = _projection_matrix;
+  m_camera = _camera;
 
   update_mvp();
 }
@@ -91,16 +84,22 @@ void gbox::Mesh::translate(glm::vec3 _translation)
   update_mvp();
 }
 
-void gbox::Mesh::update_mvp()
+std::shared_ptr<glm::mat4> gbox::Mesh::update_mvp()
 {
-  m_mvp = (*m_projection_matrix) * (*m_view_matrix) * (*m_model_matrix);
+  if (not m_camera->update_performed())
+  {
+    return m_mvp;
+  }
+  std::cout<<"updating mvp\n";
+  *m_mvp = (*m_camera->get_view_projection_matrix()) * (*m_model_matrix);
+
+  return m_mvp;
 }
 
 void gbox::Mesh::init_matrices()
 {
   m_model_matrix = std::make_shared<glm::mat4>(1.f);
-  m_view_matrix = std::make_shared<glm::mat4>(1.f);
-  m_projection_matrix = std::make_shared<glm::mat4>(1.f);
+  m_mvp = std::make_shared<glm::mat4>(1.f);
 }
 
 std::shared_ptr<gbox::ShaderProgram> gbox::Mesh::get_shader_program() const
@@ -113,7 +112,7 @@ void gbox::Mesh::set_shader_program(std::shared_ptr<gbox::ShaderProgram> _shader
   m_shader_program = _shader_program;
 }
 
-glm::mat4 gbox::Mesh::get_mvp() const
+std::shared_ptr<glm::mat4> gbox::Mesh::get_mvp() const
 {
   return m_mvp;
 }

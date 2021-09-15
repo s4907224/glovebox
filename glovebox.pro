@@ -18,6 +18,7 @@ INCLUDEPATH += /usr/local/include/
 SOURCES += \
         src/*.cpp\
         src/core/*.cpp\
+        src/camera/*.cpp\
         src/geometry/*.cpp\
         src/handlers/*.cpp\
         src/helpers/*.cpp\
@@ -27,6 +28,7 @@ SOURCES += \
 HEADERS += \
         include/*.h\
         include/core/*.h\
+        include/camera/*.h\
         include/geometry/*.h\
         include/handlers/*.h\
         include/helpers/*.h\
