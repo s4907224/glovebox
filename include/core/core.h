@@ -84,6 +84,7 @@ namespace gbox
       bool m_quit;
 
       std::chrono::time_point<std::chrono::system_clock> m_time_of_last_update;
+      float m_delta_time;
       // gbox::VAO m_vao;
 
   };// class Core

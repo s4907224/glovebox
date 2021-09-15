@@ -72,13 +72,17 @@ std::shared_ptr<glm::mat4> gbox::Camera::get_view_projection_matrix() const
 void gbox::Camera::add_pitch(float _pitch)
 {
   m_forward_vector = glm::rotate(m_forward_vector, _pitch, m_right_vector);
+  
   calculate_right_vector();
+  calculate_up_vector();
   update_view_matrix();
 }
 
 void gbox::Camera::add_yaw(float _yaw)
 {
   m_forward_vector = glm::rotate(m_forward_vector, _yaw, m_global_up_vector);
+
+  calculate_right_vector();
   calculate_up_vector();
   update_view_matrix();
 }

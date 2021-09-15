@@ -90,7 +90,7 @@ std::shared_ptr<glm::mat4> gbox::Mesh::update_mvp()
   {
     return m_mvp;
   }
-  std::cout<<"updating mvp\n";
+
   *m_mvp = (*m_camera->get_view_projection_matrix()) * (*m_model_matrix);
 
   return m_mvp;

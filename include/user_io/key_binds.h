@@ -15,6 +15,10 @@ namespace gbox
     GBIND_backward,
     GBIND_left,
     GBIND_right,
+    GBIND_yaw_positive,
+    GBIND_yaw_negative,
+    GBIND_pitch_positive,
+    GBIND_pitch_negative
   };
 }// namespace gbox
 

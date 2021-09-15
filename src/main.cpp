@@ -23,6 +23,10 @@ int main()
   core.register_keybind(gbox::GBSC_A, gbox::GBIND_left);
   core.register_keybind(gbox::GBSC_S, gbox::GBIND_backward);
   core.register_keybind(gbox::GBSC_D, gbox::GBIND_right);
+  core.register_keybind(gbox::GBSC_left, gbox::GBIND_yaw_positive);
+  core.register_keybind(gbox::GBSC_right, gbox::GBIND_yaw_negative);
+  core.register_keybind(gbox::GBSC_up, gbox::GBIND_pitch_positive);
+  core.register_keybind(gbox::GBSC_down, gbox::GBIND_pitch_negative);
 
   auto shader_program = core.register_shader_program({"resources/shaders/basic/basic.frag", "resources/shaders/basic/default.vert"});
   auto shader_program2 = core.register_shader_program({"resources/shaders/basic/basic.frag", "resources/shaders/basic/default.vert"});

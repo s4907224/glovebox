@@ -4,7 +4,8 @@ int gbox::Core::m_instance_counter = 0;
 
 gbox::Core::Core() :
   m_quit(false),
-  m_time_of_last_update(std::chrono::system_clock::now())
+  m_time_of_last_update(std::chrono::system_clock::now()),
+  m_delta_time(0.f)
 {
   m_ID = m_instance_counter++;
 
@@ -92,7 +93,7 @@ void gbox::Core::update()
   auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(now - m_time_of_last_update);
   m_time_of_last_update = std::chrono::system_clock::now();
 
-  int delta_time = duration.count();
+  m_delta_time = float(duration.count()) * 0.001f;
 
   m_handler->update();
 
@@ -151,7 +152,7 @@ void gbox::Core::process_keys()
         {
           for (auto camera : m_cameras)
           {
-            camera->view_space_translate({0.f, 0.f, 0.1f});
+            camera->view_space_translate({0.f, 0.f, 10.f * m_delta_time});
           }
           break;
         }
@@ -160,7 +161,7 @@ void gbox::Core::process_keys()
         {
           for (auto camera : m_cameras)
           {
-            camera->view_space_translate({0.f, 0.f, -0.1f});
+            camera->view_space_translate({0.f, 0.f, -10.f * m_delta_time});
           }
           break;
         }
@@ -169,7 +170,7 @@ void gbox::Core::process_keys()
         {
           for (auto camera : m_cameras)
           {
-            camera->view_space_translate({-0.1f, 0.f, 0.f});
+            camera->view_space_translate({-10.f * m_delta_time, 0.f, 0.f});
           }
           break;
         }
@@ -178,7 +179,42 @@ void gbox::Core::process_keys()
         {
           for (auto camera : m_cameras)
           {
-            camera->view_space_translate({0.1f, 0.f, 0.f});
+            camera->view_space_translate({10.f * m_delta_time, 0.f, 0.f});
+          }
+          break;
+        }
+        case (GBIND_yaw_positive):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->add_yaw(2.5f * m_delta_time);
+          }
+          break;
+        }
+
+        case (GBIND_yaw_negative):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->add_yaw(-2.5f * m_delta_time);
+          }
+          break;
+        }
+
+        case (GBIND_pitch_positive):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->add_pitch(2.5f * m_delta_time);
+          }
+          break;
+        }
+
+        case (GBIND_pitch_negative):
+        {
+          for (auto camera : m_cameras)
+          {
+            camera->add_pitch(-2.5f * m_delta_time);
           }
           break;
         }
